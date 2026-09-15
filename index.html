@@ -3,498 +3,514 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#5FAF8A">
-<link rel="manifest" href="./manifest.json">
 
 <title>Система планирования</title>
 
+<link rel="manifest" href="./manifest.json">
+
 <style>
-* {
-  box-sizing: border-box;
+*{
+  box-sizing:border-box;
 }
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f4f7f5;
-  color: #26352d;
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#f4f7f5;
+  color:#26352d;
 }
 
-.app {
-  max-width: 480px;
-  min-height: 100vh;
-  margin: auto;
-  background: white;
-  padding-bottom: 85px;
+button{
+  font-family:inherit;
 }
 
-.header {
-  padding: 16px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  border-bottom: 1px solid #edf1ee;
+.app{
+  max-width:700px;
+  margin:auto;
+  min-height:100vh;
+  background:#fff;
 }
 
-.avatar {
-  width: 42px;
-  height: 42px;
-  border: 0;
-  border-radius: 50%;
-  background: #e3f0e9;
-  font-size: 20px;
+header{
+  padding:18px 20px;
+  background:#5FAF8A;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 }
 
-.header-center {
-  flex: 1;
+.header-title{
+  font-size:21px;
+  font-weight:bold;
 }
 
-.title {
-  font-weight: bold;
-  font-size: 18px;
+.header-date{
+  font-size:13px;
+  opacity:.9;
+  margin-top:4px;
 }
 
-.date {
-  color: #89958e;
-  font-size: 12px;
-  margin-top: 3px;
+.header-icon{
+  font-size:26px;
 }
 
-.icon {
-  border: 0;
-  background: transparent;
-  font-size: 20px;
+.page{
+  display:none;
+  padding:20px;
+  padding-bottom:100px;
 }
 
-.page {
-  display: none;
-  padding: 18px;
+.page.active{
+  display:block;
 }
 
-.page.active {
-  display: block;
+.section-title{
+  font-size:20px;
+  font-weight:bold;
+  margin-bottom:15px;
 }
 
-h2 {
-  margin-top: 0;
+.empty{
+  text-align:center;
+  color:#8b968f;
+  padding:40px 10px;
 }
 
-.subtitle {
-  color: #89958e;
-  font-size: 14px;
+.task{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px;
+  margin-bottom:10px;
+  border-radius:15px;
+  background:#f4f7f5;
 }
 
-.today {
-  background: #f0f7f3;
-  padding: 16px;
-  border-radius: 18px;
-  margin: 18px 0;
+.task-circle{
+  width:23px;
+  height:23px;
+  border:2px solid #9ca8a1;
+  border-radius:50%;
+  flex-shrink:0;
+  cursor:pointer;
 }
 
-.today-title {
-  color: #718078;
-  font-size: 12px;
+.task-content{
+  flex:1;
+  min-width:0;
 }
 
-.today-date {
-  font-size: 20px;
-  font-weight: bold;
-  margin: 8px 0 14px;
+.task-title{
+  font-size:16px;
+  font-weight:600;
+  word-break:break-word;
 }
 
-.task {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  padding: 13px;
-  margin-bottom: 9px;
-  border: 1px solid #edf0ee;
-  border-radius: 14px;
-  background: white;
+.task-meta{
+  font-size:12px;
+  color:#89948d;
+  margin-top:5px;
 }
 
-.check {
-  width: 23px;
-  height: 23px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  border: 2px solid #b9c8c0;
-  background: white;
+.task-actions{
+  display:flex;
+  gap:5px;
 }
 
-.check.important {
-  border-color: #e95f63;
+.task-actions button{
+  border:0;
+  background:transparent;
+  cursor:pointer;
+  font-size:16px;
 }
 
-.check.secondary {
-  border-color: #5FAF8A;
+.priority-important{
+  border-left:5px solid #e05252;
 }
 
-.check.note {
-  border-color: #8aa8bd;
+.priority-secondary{
+  border-left:5px solid #5FAF8A;
 }
 
-.task-content {
-  flex: 1;
+.priority-note{
+  border-left:5px solid #7c9bb5;
 }
 
-.task-text {
-  font-size: 15px;
-  line-height: 1.35;
+.important-text{
+  color:#d43f3f;
+  text-transform:uppercase;
 }
 
-.task-text.important {
-  color: #d94e53;
-  font-weight: bold;
-  text-transform: uppercase;
+.secondary-text{
+  color:#4e9874;
 }
 
-.task-text.secondary {
-  color: #408060;
+.note-text{
+  color:#647f95;
 }
 
-.task-text.note {
-  color: #6e7e87;
+.add-button{
+  width:100%;
+  border:0;
+  background:#5FAF8A;
+  color:white;
+  padding:16px;
+  border-radius:16px;
+  font-size:17px;
+  font-weight:bold;
+  cursor:pointer;
+  margin-bottom:20px;
 }
 
-.meta {
-  margin-top: 5px;
-  font-size: 11px;
-  color: #89958e;
+.add-button:active{
+  transform:scale(.98);
 }
 
-.actions button {
-  border: 0;
-  background: transparent;
-  padding: 4px;
+.category-tabs{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  margin-bottom:18px;
+  padding-bottom:3px;
 }
 
-.tabs {
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  margin: 15px 0;
+.category-tabs button{
+  white-space:nowrap;
+  border:0;
+  padding:10px 15px;
+  border-radius:20px;
+  background:#edf1ee;
+  color:#58655e;
+  cursor:pointer;
 }
 
-.tab {
-  border: 0;
-  border-radius: 20px;
-  padding: 9px 15px;
-  background: #f1f4f2;
-  color: #6e7b74;
+.category-tabs button.active{
+  background:#5FAF8A;
+  color:white;
 }
 
-.tab.active {
-  background: #5FAF8A;
-  color: white;
+.modal-bg{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.45);
+  z-index:100;
+  align-items:flex-end;
+  justify-content:center;
 }
 
-.calendar-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
+.modal-bg.show{
+  display:flex;
 }
 
-.month {
-  font-size: 20px;
-  font-weight: bold;
+.modal{
+  width:100%;
+  max-width:700px;
+  background:white;
+  border-radius:25px 25px 0 0;
+  padding:22px;
+  max-height:90vh;
+  overflow:auto;
 }
 
-.month button {
-  border: 0;
-  background: #eef5f1;
-  width: 35px;
-  height: 35px;
-  border-radius: 10px;
-  font-size: 20px;
+.modal h2{
+  margin-top:0;
 }
 
-.weekdays,
-.calendar-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
+input,
+select{
+  width:100%;
+  padding:14px;
+  border:1px solid #d6ddd8;
+  border-radius:12px;
+  font-size:16px;
+  margin-bottom:14px;
+  background:white;
 }
 
-.weekday {
-  text-align: center;
-  padding: 9px 0;
-  font-size: 11px;
-  color: #89958e;
+label{
+  display:block;
+  font-size:14px;
+  color:#66736c;
+  margin-bottom:6px;
 }
 
-.day {
-  min-height: 65px;
-  padding: 5px;
-  border: 1px solid #f0f2f1;
-  font-size: 11px;
+.priority-buttons{
+  display:flex;
+  gap:10px;
+  margin-bottom:15px;
 }
 
-.day.today-day {
-  background: #eaf5ef;
+.priority-button{
+  flex:1;
+  padding:12px;
+  border-radius:12px;
+  border:2px solid transparent;
+  cursor:pointer;
+  font-weight:bold;
 }
 
-.day-number {
-  font-weight: bold;
+.priority-button.red{
+  background:#ffe6e6;
+  color:#c73d3d;
 }
 
-.dot {
-  margin-top: 4px;
-  font-size: 8px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+.priority-button.green{
+  background:#e2f2e8;
+  color:#438060;
 }
 
-.dot.important {
-  color: #d94e53;
+.priority-button.blue{
+  background:#e5edf4;
+  color:#56728b;
 }
 
-.dot.secondary {
-  color: #408060;
+.priority-button.selected{
+  border-color:#333;
 }
 
-.dot.note {
-  color: #637f91;
+.checkbox-row{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:10px 0 18px;
 }
 
-.empty {
-  text-align: center;
-  padding: 25px 10px;
-  color: #9aa59f;
+.checkbox-row input{
+  width:auto;
+  margin:0;
 }
 
-.stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  margin: 20px 0;
+.modal-buttons{
+  display:flex;
+  gap:10px;
 }
 
-.stat {
-  background: #f5f8f6;
-  border-radius: 15px;
-  padding: 14px 5px;
-  text-align: center;
+.modal-buttons button{
+  flex:1;
+  padding:14px;
+  border:0;
+  border-radius:13px;
+  font-size:16px;
+  cursor:pointer;
 }
 
-.stat-number {
-  font-size: 22px;
-  font-weight: bold;
+.cancel{
+  background:#edf0ee;
+  color:#555;
 }
 
-.stat-label {
-  color: #89958e;
-  font-size: 11px;
+.save{
+  background:#5FAF8A;
+  color:white;
+  font-weight:bold;
 }
 
-.profile-avatar {
-  width: 75px;
-  height: 75px;
-  margin: 10px auto;
-  border-radius: 50%;
-  background: #e3f0e9;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 35px;
+.calendar-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:15px;
 }
 
-.profile-name {
-  text-align: center;
-  font-size: 20px;
-  font-weight: bold;
+.calendar-header button{
+  border:0;
+  background:#edf1ee;
+  width:40px;
+  height:40px;
+  border-radius:12px;
+  cursor:pointer;
+  font-size:20px;
 }
 
-.profile-sub {
-  text-align: center;
-  color: #89958e;
-  font-size: 13px;
+.month-title{
+  font-size:18px;
+  font-weight:bold;
 }
 
-.profile-menu button {
-  width: 100%;
-  border: 0;
-  background: #f7f9f8;
-  border-radius: 14px;
-  padding: 14px;
-  margin-bottom: 8px;
-  text-align: left;
+.calendar{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:5px;
 }
 
-.add-button {
-  position: fixed;
-  bottom: 75px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 36px);
-  max-width: 430px;
-  height: 52px;
-  border: 0;
-  border-radius: 17px;
-  background: #5FAF8A;
-  color: white;
-  font-weight: bold;
-  z-index: 20;
+.weekday{
+  text-align:center;
+  font-size:11px;
+  color:#89948d;
+  padding:5px 0;
 }
 
-.bottom {
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 480px;
-  height: 67px;
-  background: white;
-  border-top: 1px solid #edf0ee;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  z-index: 30;
+.day{
+  min-height:65px;
+  padding:7px;
+  border-radius:10px;
+  background:#f5f7f6;
+  cursor:pointer;
+  font-size:13px;
 }
 
-.nav {
-  border: 0;
-  background: transparent;
-  color: #929c97;
-  font-size: 10px;
+.day.today{
+  background:#dcefe5;
+  border:2px solid #5FAF8A;
 }
 
-.nav span {
-  display: block;
-  font-size: 20px;
-  margin-bottom: 3px;
+.day-number{
+  font-weight:bold;
 }
 
-.nav.active {
-  color: #4b9a75;
-  font-weight: bold;
+.day-task{
+  font-size:9px;
+  margin-top:4px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
-.modal-bg {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(30,45,38,.4);
-  z-index: 100;
-  align-items: flex-end;
+.profile-avatar{
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  background:#dcefe5;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:38px;
+  margin:10px auto;
 }
 
-.modal-bg.show {
-  display: flex;
+.profile-name{
+  text-align:center;
+  font-size:22px;
+  font-weight:bold;
 }
 
-.modal {
-  width: 100%;
-  max-width: 480px;
-  margin: auto;
-  background: white;
-  border-radius: 25px 25px 0 0;
-  padding: 20px;
+.profile-sub{
+  text-align:center;
+  color:#89948d;
+  margin-top:5px;
+  margin-bottom:25px;
 }
 
-.modal h2 {
-  margin-bottom: 18px;
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-bottom:25px;
 }
 
-.priority {
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 7px;
-  margin-bottom: 14px;
+.stat{
+  background:#f4f7f5;
+  border-radius:15px;
+  padding:15px 5px;
+  text-align:center;
 }
 
-.priority button {
-  border: 2px solid transparent;
-  background: #f2f4f3;
-  padding: 10px 3px;
-  border-radius: 12px;
-  font-size: 12px;
+.stat-number{
+  font-size:24px;
+  font-weight:bold;
+  color:#5FAF8A;
 }
 
-.priority button.selected.important {
-  border-color: #e95f63;
+.stat-label{
+  font-size:12px;
+  color:#7d8982;
+  margin-top:5px;
 }
 
-.priority button.selected.secondary {
-  border-color: #5FAF8A;
+.notification-box{
+  background:#f4f7f5;
+  border-radius:16px;
+  padding:16px;
+  margin-top:20px;
 }
 
-.priority button.selected.note {
-  border-color: #8aa8bd;
+.notification-button{
+  width:100%;
+  padding:15px;
+  border:0;
+  border-radius:14px;
+  background:#5FAF8A;
+  color:white;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
 }
 
-textarea,
-input {
-  width: 100%;
-  border: 1px solid #dfe6e1;
-  border-radius: 13px;
-  padding: 12px;
-  background: #fafcfb;
-  margin-bottom: 10px;
+.notification-status{
+  margin-top:10px;
+  text-align:center;
+  color:#777;
+  font-size:14px;
 }
 
-textarea {
-  min-height: 85px;
-  resize: vertical;
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:100%;
+  max-width:700px;
+  background:white;
+  border-top:1px solid #e2e7e3;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  padding:8px 5px;
+  z-index:50;
 }
 
-.date-time {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
+.nav-button{
+  border:0;
+  background:white;
+  color:#89948d;
+  padding:7px 2px;
+  cursor:pointer;
+  font-size:11px;
 }
 
-.permanent {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
+.nav-button span{
+  display:block;
+  font-size:21px;
+  margin-bottom:2px;
 }
 
-.permanent input {
-  width: 18px;
-  margin: 0;
+.nav-button.active{
+  color:#5FAF8A;
+  font-weight:bold;
 }
 
-.modal-buttons {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-top: 15px;
+.toast{
+  position:fixed;
+  bottom:85px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#26352d;
+  color:white;
+  padding:12px 18px;
+  border-radius:12px;
+  display:none;
+  z-index:200;
+  font-size:14px;
 }
 
-.modal-buttons button {
-  border: 0;
-  padding: 13px;
-  border-radius: 13px;
-  font-weight: bold;
+.toast.show{
+  display:block;
 }
 
-.cancel {
-  background: #f0f3f1;
+.completed .task-title{
+  text-decoration:line-through;
+  color:#999;
 }
 
-.save {
-  background: #5FAF8A;
-  color: white;
-}
-
-.toast {
-  position: fixed;
-  left: 50%;
-  bottom: 145px;
-  transform: translateX(-50%);
-  background: #26352d;
-  color: white;
-  padding: 11px 16px;
-  border-radius: 13px;
-  display: none;
-  z-index: 200;
-}
+@media(min-width:701px){
+  body{
+    background:#e8eee9;
+  }
 
-.toast.show {
-  display: block;
+  .app{
+    box-shadow:0 0 30px rgba(0,0,0,.08);
+  }
 }
 </style>
 </head>
@@ -503,62 +519,32 @@ textarea {
 
 <div class="app">
 
-<header class="header">
-
-<button class="avatar" onclick="showPage('profile')">
-👤
-</button>
-
-<div class="header-center">
-<div class="title">Система планирования</div>
-<div class="date" id="headerDate"></div>
-</div>
-
-<button class="icon" onclick="showToast('Настройки появятся позже')">⚙️</button>
-<button class="icon" onclick="showPage('completed')">🗂️</button>
-
+<header>
+  <div>
+    <div class="header-title">Система планирования</div>
+    <div class="header-date" id="headerDate"></div>
+  </div>
+  <div class="header-icon">✓</div>
 </header>
-
 
 <!-- ГЛАВНАЯ -->
 
 <section id="home" class="page active">
 
-<h2>Мои планы</h2>
+<button class="add-button" onclick="openModal()">
+  ＋ Добавить задачу
+</button>
 
-<div class="subtitle">
-Запиши. Расставь приоритет. Не забудь. Выполни.
+<div class="category-tabs">
+  <button class="active" onclick="setCategory('all', this)">Все</button>
+  <button onclick="setCategory('important', this)">Важные</button>
+  <button onclick="setCategory('secondary', this)">Побочные</button>
+  <button onclick="setCategory('note', this)">Заметки</button>
 </div>
 
-<div class="today">
-
-<div class="today-title">СЕГОДНЯ</div>
-
-<div class="today-date" id="todayDate"></div>
+<div class="section-title">Сегодня</div>
 
 <div id="todayTasks"></div>
-
-</div>
-
-<h3>Категории</h3>
-
-<div class="tabs">
-
-<button class="tab active" onclick="setCategory('important',this)">
-Важные
-</button>
-
-<button class="tab" onclick="setCategory('secondary',this)">
-Побочные
-</button>
-
-<button class="tab" onclick="setCategory('note',this)">
-Заметки
-</button>
-
-</div>
-
-<div id="categoryTasks"></div>
 
 </section>
 
@@ -567,45 +553,39 @@ textarea {
 
 <section id="calendarPage" class="page">
 
+<div class="section-title">Календарь</div>
+
 <div class="calendar-header">
-
-<div class="month" id="monthTitle"></div>
-
-<div>
-<button onclick="changeMonth(-1)">‹</button>
-<button onclick="changeMonth(1)">›</button>
+  <button onclick="changeMonth(-1)">‹</button>
+  <div class="month-title" id="monthTitle"></div>
+  <button onclick="changeMonth(1)">›</button>
 </div>
 
+<div class="calendar">
+  <div class="weekday">Пн</div>
+  <div class="weekday">Вт</div>
+  <div class="weekday">Ср</div>
+  <div class="weekday">Чт</div>
+  <div class="weekday">Пт</div>
+  <div class="weekday">Сб</div>
+  <div class="weekday">Вс</div>
 </div>
 
-<div class="weekdays">
-<div class="weekday">ПН</div>
-<div class="weekday">ВТ</div>
-<div class="weekday">СР</div>
-<div class="weekday">ЧТ</div>
-<div class="weekday">ПТ</div>
-<div class="weekday">СБ</div>
-<div class="weekday">ВС</div>
+<div class="calendar" id="calendarGrid"></div>
+
+<div style="margin-top:25px;">
+  <div class="section-title">Задачи месяца</div>
+  <div id="monthTasks"></div>
 </div>
-
-<div id="calendarGrid" class="calendar-grid"></div>
-
-<h3>Задачи месяца</h3>
-
-<div id="monthTasks"></div>
 
 </section>
 
 
 <!-- ВЫПОЛНЕНО -->
 
-<section id="completed" class="page">
+<section id="completedPage" class="page">
 
-<h2>Выполненные задачи</h2>
-
-<div class="subtitle">
-Здесь хранится история выполненных планов.
-</div>
+<div class="section-title">Выполненные задачи</div>
 
 <div id="completedTasks"></div>
 
@@ -645,54 +625,59 @@ textarea {
 
 </div>
 
-<div class="profile-menu">
+<div class="notification-box">
 
-<button onclick="showPage('completed')">
-✅ История выполненных задач
+<div style="font-weight:bold;font-size:17px;margin-bottom:7px;">
+🔔 Уведомления
+</div>
+
+<div style="font-size:14px;color:#777;margin-bottom:14px;">
+Разрешите уведомления, чтобы приложение могло напоминать о задачах.
+</div>
+
+<button
+class="notification-button"
+onclick="requestNotifications()">
+🔔 Разрешить уведомления
 </button>
 
-<button onclick="showToast('Данные сохраняются на этом устройстве')">
-💾 Хранение данных
-</button>
-
-<button onclick="clearCompleted()">
-🗑️ Очистить выполненные
-</button>
+<div
+id="notificationStatus"
+class="notification-status">
+Проверяем статус...
+</div>
 
 </div>
 
 </section>
 
 
-<button class="add-button" onclick="openModal()">
-＋ Добавить задачу
-</button>
+<!-- НИЖНЯЯ НАВИГАЦИЯ -->
 
+<nav class="bottom-nav">
 
-<nav class="bottom">
-
-<button class="nav active" onclick="showPage('home')">
-<span>⌂</span>
+<button class="nav-button active" onclick="showPage('home', this)">
+<span>🏠</span>
 Главная
 </button>
 
-<button class="nav" onclick="showPage('calendarPage')">
-<span>▦</span>
+<button class="nav-button" onclick="showPage('calendarPage', this)">
+<span>📅</span>
 Календарь
 </button>
 
-<button class="nav" onclick="openModal()">
+<button class="nav-button" onclick="openModal()">
 <span>＋</span>
 Добавить
 </button>
 
-<button class="nav" onclick="showPage('completed')">
+<button class="nav-button" onclick="showPage('completedPage', this)">
 <span>✓</span>
 Выполнено
 </button>
 
-<button class="nav" onclick="showPage('profile')">
-<span>●</span>
+<button class="nav-button" onclick="showPage('profile', this)">
+<span>👤</span>
 Профиль
 </button>
 
@@ -701,62 +686,80 @@ textarea {
 </div>
 
 
-<!-- ОКНО ДОБАВЛЕНИЯ -->
+<!-- МОДАЛЬНОЕ ОКНО -->
 
-<div id="modalBg" class="modal-bg">
+<div class="modal-bg" id="modalBg">
 
 <div class="modal">
 
 <h2 id="modalTitle">Новая задача</h2>
 
-<div class="priority">
+<label>Название задачи</label>
 
-<button class="selected important"
-onclick="selectPriority('important',this)">
+<input
+type="text"
+id="taskText"
+placeholder="Например: Поздравить Бабу Зину">
+
+<label>Важность</label>
+
+<div class="priority-buttons">
+
+<button
+class="priority-button red selected"
+id="priorityImportant"
+onclick="selectPriority('important')">
 🔴 Важная
 </button>
 
-<button class="secondary"
-onclick="selectPriority('secondary',this)">
+<button
+class="priority-button green"
+id="prioritySecondary"
+onclick="selectPriority('secondary')">
 🟢 Побочная
 </button>
 
-<button class="note"
-onclick="selectPriority('note',this)">
+<button
+class="priority-button blue"
+id="priorityNote"
+onclick="selectPriority('note')">
 🔵 Заметка
 </button>
 
 </div>
 
-<textarea
-id="taskText"
-placeholder="Введите задачу..."
-></textarea>
-
-<div class="date-time">
+<label>Дата</label>
 
 <input type="date" id="taskDate">
 
+<label>Время</label>
+
 <input type="time" id="taskTime">
 
-</div>
+<div class="checkbox-row">
 
-<label class="permanent">
+<input
+type="checkbox"
+id="taskRecurring">
 
-<input type="checkbox" id="permanent">
-
+<label for="taskRecurring">
 Постоянная задача
-
 </label>
+
+</div>
 
 <div class="modal-buttons">
 
-<button class="cancel" onclick="closeModal()">
+<button
+class="cancel"
+onclick="closeModal()">
 Отмена
 </button>
 
-<button class="save" onclick="saveTask()">
-Сохранить
+<button
+class="save"
+onclick="saveTask()">
+Создать
 </button>
 
 </div>
@@ -766,373 +769,374 @@ placeholder="Введите задачу..."
 </div>
 
 
-<div id="toast" class="toast"></div>
+<div class="toast" id="toast"></div>
 
 
 <script>
 
-const STORAGE = "planningTasksFinal";
-
-let tasks = JSON.parse(localStorage.getItem(STORAGE) || "null");
-
-let category = "important";
-
-let priority = "important";
-
-let editId = null;
-
-let calendarDate = new Date();
-
-const months = [
-"Январь","Февраль","Март","Апрель","Май","Июнь",
-"Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"
-];
-
-const genitive = [
-"января","февраля","марта","апреля","мая","июня",
-"июля","августа","сентября","октября","ноября","декабря"
-];
-
-
-function dateString(date) {
-
-return date.getFullYear() + "-" +
-String(date.getMonth()+1).padStart(2,"0") + "-" +
-String(date.getDate()).padStart(2,"0");
-
-}
-
-
-function prettyDate(value) {
-
-if (!value) return "";
-
-const parts = value.split("-");
-
-return Number(parts[2]) + " " +
-genitive[Number(parts[1])-1];
-
-}
-
-
-function today() {
-
-return dateString(new Date());
-
-}
-
-
-if (!tasks) {
-
-tasks = [
-
-{
-id: 1,
-text: "Поздравить Бабу Зину",
-priority: "important",
-date: today(),
-time: "16:00",
-permanent: false,
-completed: false
-},
-
-{
-id: 2,
-text: "Забрать ноутбук с ремонта",
-priority: "important",
-date: today(),
-time: "17:00",
-permanent: false,
-completed: false
-},
-
-{
-id: 3,
-text: "Помыть пол до прихода жены",
-priority: "secondary",
-date: today(),
-time: "20:00",
-permanent: false,
-completed: false
-},
-
-{
-id: 4,
-text: "#дома отключают свет до 16",
-priority: "note",
-date: today(),
-time: "",
-permanent: false,
-completed: false
-}
-
-];
-
-save();
-
-}
-
-
-function save() {
-
-localStorage.setItem(
-STORAGE,
-JSON.stringify(tasks)
+let tasks = JSON.parse(
+  localStorage.getItem("planningTasksFinal") || "[]"
 );
 
-}
+let selectedPriority = "important";
+
+let editingId = null;
+
+let currentCategory = "all";
+
+let currentMonth = new Date();
 
 
-function showPage(id) {
+function saveToStorage(){
 
-document.querySelectorAll(".page")
-.forEach(page => page.classList.remove("active"));
-
-document.getElementById(id)
-.classList.add("active");
-
-document.querySelectorAll(".nav")
-.forEach(button => button.classList.remove("active"));
-
-const indexes = {
-home: 0,
-calendarPage: 1,
-completed: 3,
-profile: 4
-};
-
-if (indexes[id] !== undefined) {
-
-document.querySelectorAll(".nav")[indexes[id]]
-.classList.add("active");
-
-}
-
-render();
+  localStorage.setItem(
+    "planningTasksFinal",
+    JSON.stringify(tasks)
+  );
 
 }
 
 
-function openModal(task = null) {
+function todayString(){
 
-editId = task ? task.id : null;
+  const d = new Date();
 
-document.getElementById("modalTitle")
-.textContent = task ? "Редактирование" : "Новая задача";
+  const y = d.getFullYear();
 
-document.getElementById("taskText")
-.value = task ? task.text : "";
+  const m = String(d.getMonth()+1).padStart(2,"0");
 
-document.getElementById("taskDate")
-.value = task ? task.date : today();
+  const day = String(d.getDate()).padStart(2,"0");
 
-document.getElementById("taskTime")
-.value = task ? task.time : "";
-
-document.getElementById("permanent")
-.checked = task ? task.permanent : false;
-
-priority = task ? task.priority : "important";
-
-document.querySelectorAll(".priority button")
-.forEach(button => button.classList.remove("selected"));
-
-document.querySelector(
-`.priority .${priority}`
-).classList.add("selected");
-
-document.getElementById("modalBg")
-.classList.add("show");
+  return `${y}-${m}-${day}`;
 
 }
 
 
-function closeModal() {
+function formatDate(date){
 
-document.getElementById("modalBg")
-.classList.remove("show");
+  const d = new Date(date + "T00:00:00");
 
-editId = null;
-
-}
-
-
-function selectPriority(value, button) {
-
-priority = value;
-
-document.querySelectorAll(".priority button")
-.forEach(b => b.classList.remove("selected"));
-
-button.classList.add("selected");
+  return d.toLocaleDateString(
+    "ru-RU",
+    {
+      day:"numeric",
+      month:"long"
+    }
+  );
 
 }
 
 
-function saveTask() {
+function updateDates(){
 
-const text =
-document.getElementById("taskText").value.trim();
+  const now = new Date();
 
-const date =
-document.getElementById("taskDate").value;
-
-const time =
-document.getElementById("taskTime").value;
-
-const permanent =
-document.getElementById("permanent").checked;
-
-
-if (!text) {
-
-showToast("Введите задачу");
-
-return;
+  document.getElementById("headerDate").textContent =
+    now.toLocaleDateString(
+      "ru-RU",
+      {
+        weekday:"long",
+        day:"numeric",
+        month:"long"
+      }
+    );
 
 }
 
 
-if (!date) {
+function showPage(pageId, button){
 
-showToast("Выберите дату");
+  document.querySelectorAll(".page").forEach(
+    page => page.classList.remove("active")
+  );
 
-return;
+  document.getElementById(pageId).classList.add("active");
 
-}
+  document.querySelectorAll(".nav-button").forEach(
+    b => b.classList.remove("active")
+  );
 
+  if(button){
+    button.classList.add("active");
+  }
 
-if (editId) {
-
-const task =
-tasks.find(t => t.id === editId);
-
-task.text = text;
-task.priority = priority;
-task.date = date;
-task.time = time;
-task.permanent = permanent;
-
-showToast("Задача изменена");
-
-} else {
-
-tasks.push({
-
-id: Date.now(),
-
-text,
-priority,
-date,
-time,
-permanent,
-completed: false
-
-});
-
-showToast("Задача создана ✓");
+  render();
 
 }
 
 
-save();
+function openModal(id=null){
 
-closeModal();
+  editingId = id;
 
-render();
+  document.getElementById("modalBg").classList.add("show");
 
-}
+  if(id){
 
+    const task = tasks.find(t => t.id === id);
 
-function completeTask(id) {
+    if(!task) return;
 
-const task =
-tasks.find(t => t.id === id);
+    document.getElementById("modalTitle").textContent =
+      "Изменить задачу";
 
-if (!task) return;
+    document.getElementById("taskText").value =
+      task.text;
 
-task.completed = true;
+    document.getElementById("taskDate").value =
+      task.date;
 
-task.completedAt =
-new Date().toISOString();
+    document.getElementById("taskTime").value =
+      task.time || "";
 
-save();
+    document.getElementById("taskRecurring").checked =
+      task.recurring || false;
 
-showToast("Задача выполнена ✓");
+    selectPriority(task.priority);
 
-render();
+  }else{
 
-}
+    document.getElementById("modalTitle").textContent =
+      "Новая задача";
 
+    document.getElementById("taskText").value = "";
 
-function deleteTask(id) {
+    document.getElementById("taskDate").value =
+      todayString();
 
-if (!confirm("Удалить задачу?")) return;
+    document.getElementById("taskTime").value = "";
 
-tasks =
-tasks.filter(t => t.id !== id);
+    document.getElementById("taskRecurring").checked =
+      false;
 
-save();
+    selectPriority("important");
 
-showToast("Задача удалена");
-
-render();
-
-}
-
-
-function editTask(id) {
-
-const task =
-tasks.find(t => t.id === id);
-
-if (task) openModal(task);
+  }
 
 }
 
 
-function taskHTML(task, completed=false) {
+function closeModal(){
 
-return `
+  document.getElementById("modalBg").classList.remove("show");
 
-<div class="task">
+  editingId = null;
 
-<button
-class="check ${task.priority}"
-onclick="${completed ? "" : `completeTask(${task.id})`}"
-></button>
+}
 
-<div class="task-content">
 
-<div class="task-text ${task.priority}">
-${escapeHTML(task.text)}
-</div>
+function selectPriority(priority){
 
-<div class="meta">
+  selectedPriority = priority;
 
-${task.date ? "📅 " + prettyDate(task.date) : ""}
+  document.querySelectorAll(".priority-button").forEach(
+    b => b.classList.remove("selected")
+  );
 
-${task.time ? " · ⏰ " + task.time : ""}
+  if(priority === "important"){
+    document.getElementById("priorityImportant")
+      .classList.add("selected");
+  }
 
-${task.permanent ? " · 🔄 постоянно" : ""}
+  if(priority === "secondary"){
+    document.getElementById("prioritySecondary")
+      .classList.add("selected");
+  }
 
-${completed ? " · ✓ выполнено" : ""}
+  if(priority === "note"){
+    document.getElementById("priorityNote")
+      .classList.add("selected");
+  }
 
-</div>
+}
 
-</div>
 
-${completed ? "" : `
+function saveTask(){
 
-<div class="actions">
+  const text =
+    document.getElementById("taskText").value.trim();
 
-<button onclick="editTask(${task.id})">✏️</button>
+  const date =
+    document.getElementById("taskDate").value;
 
-<button onclick="deleteTask(${task.id})">🗑️</button>
+  const time =
+    document.getElementById("taskTime").value;
 
-</div>
+  const recurring =
+    document.getElementById("taskRecurring").checked;
 
-`}
+  if(!text){
+
+    alert("Введите название задачи");
+
+    return;
+
+  }
+
+  if(!date){
+
+    alert("Выберите дату");
+
+    return;
+
+  }
+
+  if(editingId){
+
+    const task =
+      tasks.find(t => t.id === editingId);
+
+    if(task){
+
+      task.text = text;
+
+      task.date = date;
+
+      task.time = time;
+
+      task.priority = selectedPriority;
+
+      task.recurring = recurring;
+
+    }
+
+  }else{
+
+    tasks.push({
+
+      id:Date.now(),
+
+      text:text,
+
+      date:date,
+
+      time:time,
+
+      priority:selectedPriority,
+
+      recurring:recurring,
+
+      completed:false,
+
+      created:new Date().toISOString()
+
+    });
+
+  }
+
+  saveToStorage();
+
+  closeModal();
+
+  render();
+
+  showToast(
+    editingId
+      ? "Задача изменена"
+      : "Задача создана"
+  );
+
+}
+
+
+function completeTask(id){
+
+  const task =
+    tasks.find(t => t.id === id);
+
+  if(!task) return;
+
+  task.completed = true;
+
+  task.completedAt =
+    new Date().toISOString();
+
+  saveToStorage();
+
+  render();
+
+  showToast("Задача выполнена ✓");
+
+}
+
+
+function deleteTask(id){
+
+  tasks =
+    tasks.filter(t => t.id !== id);
+
+  saveToStorage();
+
+  render();
+
+  showToast("Задача удалена");
+
+}
+
+
+function editTask(id){
+
+  openModal(id);
+
+}
+
+
+function taskHTML(task){
+
+  let priorityClass =
+    "priority-" + task.priority;
+
+  let textClass =
+    task.priority + "-text";
+
+  let time =
+    task.time
+      ? " · " + task.time
+      : "";
+
+  let recurring =
+    task.recurring
+      ? " · 🔁 постоянно"
+      : "";
+
+  return `
+
+<div class="task ${priorityClass} ${task.completed ? "completed" : ""}">
+
+  ${
+    task.completed
+      ? `<div class="task-circle"
+             style="background:#5FAF8A;border-color:#5FAF8A;color:white;text-align:center;">
+             ✓
+         </div>`
+      : `<div class="task-circle"
+             onclick="completeTask(${task.id})">
+         </div>`
+  }
+
+  <div class="task-content">
+
+    <div class="task-title ${textClass}">
+      ${escapeHTML(task.text)}
+    </div>
+
+    <div class="task-meta">
+      ${formatDate(task.date)}${time}${recurring}
+    </div>
+
+  </div>
+
+  <div class="task-actions">
+
+    ${
+      !task.completed
+      ? `<button onclick="editTask(${task.id})">✏️</button>`
+      : ""
+    }
+
+    <button onclick="deleteTask(${task.id})">🗑️</button>
+
+  </div>
 
 </div>
 
@@ -1141,330 +1145,503 @@ ${completed ? "" : `
 }
 
 
-function escapeHTML(text) {
+function escapeHTML(text){
 
-return String(text)
-.replaceAll("&","&amp;")
-.replaceAll("<","&lt;")
-.replaceAll(">","&gt;")
-.replaceAll('"',"&quot;")
-.replaceAll("'","&#039;");
-
-}
-
-
-function setCategory(value, button) {
-
-category = value;
-
-document.querySelectorAll(".tab")
-.forEach(b => b.classList.remove("active"));
-
-button.classList.add("active");
-
-renderCategory();
+  return text
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 
 }
 
 
-function renderToday() {
+function setCategory(category, button){
 
-const container =
-document.getElementById("todayTasks");
+  currentCategory = category;
 
-const list =
-tasks
-.filter(t => !t.completed && t.date === today())
-.sort(sortTasks);
+  document.querySelectorAll(".category-tabs button")
+    .forEach(b => b.classList.remove("active"));
 
+  button.classList.add("active");
 
-container.innerHTML =
-list.length
-? list.map(t => taskHTML(t)).join("")
-: `<div class="empty">На сегодня планов нет 🌿</div>`;
+  renderToday();
 
 }
 
 
-function renderCategory() {
+function sortTasks(list){
 
-const container =
-document.getElementById("categoryTasks");
+  return list.sort((a,b)=>{
 
-const list =
-tasks
-.filter(t => !t.completed && t.priority === category)
-.sort(sortTasks);
+    if(a.time && b.time){
 
+      return a.time.localeCompare(b.time);
 
-container.innerHTML =
-list.length
-? list.map(t => taskHTML(t)).join("")
-: `<div class="empty">В этой категории пока нет задач.</div>`;
+    }
 
-}
+    if(a.time) return -1;
 
+    if(b.time) return 1;
 
-function sortTasks(a,b) {
+    return 0;
 
-return (a.date + a.time)
-.localeCompare(b.date + b.time);
+  });
 
 }
 
 
-function changeMonth(direction) {
+function renderToday(){
 
-calendarDate.setMonth(
-calendarDate.getMonth() + direction
-);
+  const today =
+    todayString();
 
-renderCalendar();
+  let list =
+    tasks.filter(
+      t =>
+        t.date === today &&
+        !t.completed
+    );
 
-}
+  if(currentCategory !== "all"){
 
+    list =
+      list.filter(
+        t => t.priority === currentCategory
+      );
 
-function renderCalendar() {
+  }
 
-const year =
-calendarDate.getFullYear();
+  list =
+    sortTasks(list);
 
-const month =
-calendarDate.getMonth();
+  const container =
+    document.getElementById("todayTasks");
 
-document.getElementById("monthTitle")
-.textContent =
-months[month] + " " + year;
+  if(!list.length){
 
-const grid =
-document.getElementById("calendarGrid");
+    container.innerHTML =
+      `<div class="empty">
+        Сегодня задач нет 🎉
+       </div>`;
 
-grid.innerHTML = "";
+    return;
 
-const first =
-new Date(year,month,1);
+  }
 
-let start =
-first.getDay();
-
-start = start === 0 ? 6 : start - 1;
-
-const days =
-new Date(year,month+1,0).getDate();
-
-
-for (let i=0; i<start; i++) {
-
-const cell =
-document.createElement("div");
-
-cell.className = "day";
-
-cell.innerHTML = "";
-
-grid.appendChild(cell);
+  container.innerHTML =
+    list.map(taskHTML).join("");
 
 }
 
 
-for (let d=1; d<=days; d++) {
+function renderCalendar(){
 
-const date =
-new Date(year,month,d);
+  const year =
+    currentMonth.getFullYear();
 
-const value =
-dateString(date);
+  const month =
+    currentMonth.getMonth();
 
-const cell =
-document.createElement("div");
+  const title =
+    currentMonth.toLocaleDateString(
+      "ru-RU",
+      {
+        month:"long",
+        year:"numeric"
+      }
+    );
 
-cell.className = "day";
+  document.getElementById("monthTitle")
+    .textContent =
+      title.charAt(0).toUpperCase()
+      + title.slice(1);
 
-if (value === today()) {
+  const grid =
+    document.getElementById("calendarGrid");
 
-cell.classList.add("today-day");
+  grid.innerHTML = "";
 
-}
+  const first =
+    new Date(year,month,1);
 
+  let startDay =
+    first.getDay();
 
-cell.innerHTML =
-`<div class="day-number">${d}</div>`;
+  startDay =
+    startDay === 0 ? 7 : startDay;
 
+  const days =
+    new Date(year,month+1,0).getDate();
 
-tasks
-.filter(t => !t.completed && t.date === value)
-.slice(0,3)
-.forEach(task => {
+  for(let i=1;i<startDay;i++){
 
-const div =
-document.createElement("div");
+    grid.innerHTML +=
+      `<div></div>`;
 
-div.className =
-"dot " + task.priority;
+  }
 
-div.textContent =
-task.text;
+  for(let day=1;day<=days;day++){
 
-cell.appendChild(div);
+    const date =
+      `${year}-${String(month+1).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
 
-});
+    const dayTasks =
+      tasks.filter(
+        t => t.date === date
+      );
 
+    const isToday =
+      date === todayString();
 
-grid.appendChild(cell);
+    let taskHTMLs =
+      dayTasks
+        .slice(0,2)
+        .map(
+          t =>
+            `<div class="day-task ${t.priority}-text">
+              ${escapeHTML(t.text)}
+            </div>`
+        )
+        .join("");
 
-}
+    grid.innerHTML += `
 
+      <div class="day ${isToday ? "today" : ""}"
+           onclick="showDayTasks('${date}')">
 
-while (grid.children.length < 42) {
+        <div class="day-number">
+          ${day}
+        </div>
 
-const cell =
-document.createElement("div");
+        ${taskHTMLs}
 
-cell.className = "day";
+      </div>
 
-grid.appendChild(cell);
+    `;
 
-}
+  }
 
-
-renderMonthTasks();
-
-}
-
-
-function renderMonthTasks() {
-
-const container =
-document.getElementById("monthTasks");
-
-const prefix =
-calendarDate.getFullYear() +
-"-" +
-String(calendarDate.getMonth()+1).padStart(2,"0");
-
-
-const list =
-tasks
-.filter(t =>
-!t.completed &&
-t.date &&
-t.date.startsWith(prefix)
-)
-.sort(sortTasks);
-
-
-container.innerHTML =
-list.length
-? list.map(t => taskHTML(t)).join("")
-: `<div class="empty">Задач в этом месяце нет.</div>`;
+  renderMonthTasks();
 
 }
 
 
-function renderCompleted() {
+function renderMonthTasks(){
 
-const container =
-document.getElementById("completedTasks");
+  const year =
+    currentMonth.getFullYear();
 
-const list =
-tasks
-.filter(t => t.completed)
-.reverse();
+  const month =
+    currentMonth.getMonth();
 
+  const prefix =
+    `${year}-${String(month+1).padStart(2,"0")}`;
 
-container.innerHTML =
-list.length
-? list.map(t => taskHTML(t,true)).join("")
-: `<div class="empty">Выполненных задач пока нет.</div>`;
+  const list =
+    tasks.filter(
+      t => t.date.startsWith(prefix)
+    );
 
-}
+  const container =
+    document.getElementById("monthTasks");
 
+  if(!list.length){
 
-function clearCompleted() {
+    container.innerHTML =
+      `<div class="empty">
+        В этом месяце задач нет
+       </div>`;
 
-if (!confirm("Очистить историю выполненных задач?"))
-return;
+    return;
 
-tasks =
-tasks.filter(t => !t.completed);
+  }
 
-save();
-
-render();
-
-showToast("История очищена");
-
-}
-
-
-function renderProfile() {
-
-document.getElementById("totalCount")
-.textContent = tasks.length;
-
-document.getElementById("doneCount")
-.textContent =
-tasks.filter(t => t.completed).length;
-
-document.getElementById("importantCount")
-.textContent =
-tasks.filter(t =>
-!t.completed &&
-t.priority === "important"
-).length;
+  container.innerHTML =
+    sortTasks(list).map(taskHTML).join("");
 
 }
 
 
-function updateDates() {
+function showDayTasks(date){
 
-const now = new Date();
+  const list =
+    tasks.filter(
+      t => t.date === date
+    );
 
-document.getElementById("headerDate")
-.textContent =
-now.getDate() + " " +
-genitive[now.getMonth()] + " " +
-now.getFullYear();
+  if(!list.length){
 
-document.getElementById("todayDate")
-.textContent =
-now.getDate() + " " +
-genitive[now.getMonth()];
+    showToast("На этот день задач нет");
 
-}
+    return;
 
+  }
 
-function showToast(message) {
-
-const toast =
-document.getElementById("toast");
-
-toast.textContent = message;
-
-toast.classList.add("show");
-
-setTimeout(() => {
-
-toast.classList.remove("show");
-
-},2200);
+  document.getElementById("monthTasks")
+    .innerHTML =
+      `<div class="section-title">
+        ${formatDate(date)}
+       </div>`
+      + list.map(taskHTML).join("");
 
 }
 
 
-function render() {
+function changeMonth(offset){
 
-updateDates();
+  currentMonth.setMonth(
+    currentMonth.getMonth() + offset
+  );
 
-renderToday();
+  renderCalendar();
 
-renderCategory();
+}
 
-renderCalendar();
 
-renderCompleted();
+function renderCompleted(){
 
-renderProfile();
+  const list =
+    tasks.filter(
+      t => t.completed
+    );
+
+  const container =
+    document.getElementById("completedTasks");
+
+  if(!list.length){
+
+    container.innerHTML =
+      `<div class="empty">
+        Выполненных задач пока нет
+       </div>`;
+
+    return;
+
+  }
+
+  container.innerHTML =
+    list
+      .sort(
+        (a,b) =>
+          (b.completedAt || "")
+          .localeCompare(a.completedAt || "")
+      )
+      .map(taskHTML)
+      .join("");
+
+}
+
+
+function renderProfile(){
+
+  const total =
+    tasks.length;
+
+  const done =
+    tasks.filter(
+      t => t.completed
+    ).length;
+
+  const important =
+    tasks.filter(
+      t =>
+        t.priority === "important"
+        && !t.completed
+    ).length;
+
+  document.getElementById("totalCount")
+    .textContent = total;
+
+  document.getElementById("doneCount")
+    .textContent = done;
+
+  document.getElementById("importantCount")
+    .textContent = important;
+
+  updateNotificationStatus();
+
+}
+
+
+function requestNotifications(){
+
+  if(!("Notification" in window)){
+
+    alert(
+      "Этот браузер не поддерживает уведомления."
+    );
+
+    return;
+
+  }
+
+  Notification.requestPermission()
+    .then(permission => {
+
+      updateNotificationStatus();
+
+      if(permission === "granted"){
+
+        new Notification(
+          "Система планирования",
+          {
+            body:"Уведомления работают!"
+          }
+        );
+
+        showToast(
+          "Уведомления разрешены ✓"
+        );
+
+      }
+
+      else if(permission === "denied"){
+
+        alert(
+          "Уведомления запрещены в настройках браузера."
+        );
+
+      }
+
+    })
+    .catch(() => {
+
+      alert(
+        "Не удалось запросить разрешение на уведомления."
+      );
+
+    });
+
+}
+
+
+function updateNotificationStatus(){
+
+  const element =
+    document.getElementById(
+      "notificationStatus"
+    );
+
+  if(!element) return;
+
+  if(!("Notification" in window)){
+
+    element.textContent =
+      "❌ Браузер не поддерживает уведомления";
+
+    return;
+
+  }
+
+  if(Notification.permission === "granted"){
+
+    element.textContent =
+      "✅ Уведомления разрешены";
+
+  }
+
+  else if(Notification.permission === "denied"){
+
+    element.textContent =
+      "❌ Уведомления запрещены";
+
+  }
+
+  else{
+
+    element.textContent =
+      "Уведомления пока не разрешены";
+
+  }
+
+}
+
+
+function showToast(message){
+
+  const toast =
+    document.getElementById("toast");
+
+  toast.textContent =
+    message;
+
+  toast.classList.add("show");
+
+  setTimeout(
+    () => toast.classList.remove("show"),
+    2200
+  );
+
+}
+
+
+function render(){
+
+  updateDates();
+
+  renderToday();
+
+  renderCalendar();
+
+  renderCompleted();
+
+  renderProfile();
+
+}
+
+
+if(tasks.length === 0){
+
+  const today =
+    todayString();
+
+  tasks = [
+
+    {
+      id:1,
+      text:"Поздравить Бабу Зину",
+      date:today,
+      time:"16:00",
+      priority:"important",
+      recurring:false,
+      completed:false
+    },
+
+    {
+      id:2,
+      text:"Забрать ноутбук с ремонта",
+      date:today,
+      time:"17:00",
+      priority:"important",
+      recurring:false,
+      completed:false
+    },
+
+    {
+      id:3,
+      text:"Помыть пол до прихода жены",
+      date:today,
+      time:"20:00",
+      priority:"secondary",
+      recurring:false,
+      completed:false
+    },
+
+    {
+      id:4,
+      text:"#дома отключают свет до 16",
+      date:today,
+      time:"",
+      priority:"note",
+      recurring:false,
+      completed:false
+    }
+
+  ];
+
+  saveToStorage();
 
 }
 
