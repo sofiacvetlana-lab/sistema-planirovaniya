@@ -1,20 +1,6 @@
-const CACHE_NAME = "sistema-planirovaniya-v4";
-
-const APP_FILES = [
-  "./",
-  "./index.html",
-  "./manifest.json",
-  "./icon-192.png",
-  "./icon-512.png"
-];
+const CACHE_NAME = "sistema-planirovaniya-v5";
 
 self.addEventListener("install", event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(APP_FILES);
-    })
-  );
-
   self.skipWaiting();
 });
 
@@ -40,18 +26,7 @@ self.addEventListener("fetch", event => {
 
   event.respondWith(
     fetch(event.request)
-      .then(response => {
-
-        const copy = response.clone();
-
-        caches.open(CACHE_NAME).then(cache => {
-          cache.put(event.request, copy);
-        });
-
-        return response;
-      })
-      .catch(() => {
-        return caches.match(event.request);
-      })
+      .catch(() => caches.match(event.request))
   );
+
 });
