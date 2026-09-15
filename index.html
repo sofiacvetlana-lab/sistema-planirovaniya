@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#5FAF8A">
+<title>Система планирования</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    background: #f4f7f5;
+    color: #202624;
+}
+
+button, input, textarea {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+.app {
+    width: 100%;
+    max-width: 480px;
+    min-height: 100vh;
+    margin: auto;
+    background: #ffffff;
+    position: relative;
+    overflow: hidden;
+}
+
+.header {
+    padding: 22px 20px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.profile {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #e2eee8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+}
+
+.header-title {
+    text-align: center;
+    flex: 1;
+}
+
+.header-title h1 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.header-title p {
+    margin: 3px 0 0;
+    color: #7a8580;
+    font-size: 12px;
+}
+
+.header-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.icon-button {
+    border: 0;
+    background: #f0f3f1;
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    font-size: 18px;
+}
+
+.calendar-section {
+    padding: 8px 16px 0;
+}
+
+.month-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 5px 14px;
+}
+
+.month-header h2 {
+    font-size: 18px;
+    margin: 0;
+}
+
+.month-arrow {
+    border: 0;
+    background: #eef3f0;
+    width: 34px;
+    height: 34px;
+    border-radius: 11px;
+    font-size: 20px;
+}
+
+.weekdays,
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+}
+
+.weekdays div {
+    text-align: center;
+    color: #8b9590;
+    font-size: 11px;
+    font-weight: 600;
+    padding-bottom: 5px;
+}
+
+.day {
+    min-height: 54px;
+    border: 1px solid #edf0ee;
+    border-radius: 12px;
+    background: #fff;
+    padding: 6px 4px;
+    position: relative;
+    text-align: left;
+}
+
+.day.empty {
+    border: 0;
+    background: transparent;
+}
+
+.day.today {
+    background: #e5f3ec;
+    border-color: #b9ddcb;
+}
+
+.day.selected {
+    box-shadow: inset 0 0 0 2px #5FAF8A;
+}
+
+.day-number {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.task-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 2px;
+}
+
+.day-task {
+    margin-top: 5px;
+    font-size: 7px;
+    line-height: 9px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.red {
+    background: #e95f63;
+}
+
+.green {
+    background: #5FAF8A;
+}
+
+.blue {
+    background: #8aa8bd;
+}
+
+.tasks-section {
+    margin-top: 18px;
+    padding-bottom: 105px;
+}
+
+.tabs {
+    display: flex;
+    padding: 0 16px;
+    gap: 7px;
+}
+
+.tab {
+    flex: 1;
+    border: 0;
+    border-radius: 14px;
+    padding: 11px 5px;
+    background: #f0f3f1;
+    color: #65706b;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.tab.active.important {
+    background: #f9dfe0;
+    color: #b8383d;
+}
+
+.tab.active.secondary {
+    background: #dcefe6;
+    color: #277354;
+}
+
+.tab.active.notes {
+    background: #e5edf2;
+    color: #526f82;
+}
+
+.date-title {
+    padding: 18px 20px 8px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #818b86;
+    text-transform: uppercase;
+}
+
+.task-list {
+    padding: 0 16px;
+}
+
+.task {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 10px;
+    border-bottom: 1px solid #edf0ee;
+}
+
+.check {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid #b9c5bf;
+    background: white;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.task.important .check {
+    border-color: #e95f63;
+}
+
+.task.secondary .check {
+    border-color: #5FAF8A;
+}
+
+.task.note .check {
+    border-color: #8aa8bd;
+}
+
+.check.done {
+    background: #5FAF8A;
+    border-color: #5FAF8A !important;
+    color: white;
+}
+
+.task-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.task-name {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.task-name.completed {
+    text-decoration: line-through;
+    color: #a1aaa5;
+}
+
+.task-meta {
+    margin-top: 4px;
+    color: #8a948f;
+    font-size: 11px;
+}
+
+.task-time {
+    color: #7d8782;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.note-text {
+    color: #66736d;
+    font-weight: 500;
+}
+
+.add-button {
+    position: fixed;
+    bottom: 72px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 34px);
+    max-width: 446px;
+    border: 0;
+    background: #5FAF8A;
+    color: white;
+    border-radius: 17px;
+    padding: 15px;
+    font-weight: 700;
+    box-shadow: 0 8px 25px rgba(70, 130, 100, .22);
+    z-index: 5;
+}
+
+.add-button span {
+    font-size: 20px;
+    vertical-align: -2px;
+    margin-right: 5px;
+}
+
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 480px;
+    height: 62px;
+    background: rgba(255,255,255,.96);
+    border-top: 1px solid #edf0ee;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 6;
+}
+
+.nav-item {
+    border: 0;
+    background: transparent;
+    color: #87918c;
+    font-size: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    align-items: center;
+}
+
+.nav-item.active {
+    color: #398061;
+    font-weight: 700;
+}
+
+.nav-icon {
+    font-size: 19px;
+}
+
+.modal-bg {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(20,30,25,.38);
+    z-index: 20;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.modal-bg.show {
+    display: flex;
+}
+
+.modal {
+    width: 100%;
+    max-width: 480px;
+    background: white;
+    border-radius: 26px 26px 0 0;
+    padding: 22px 20px 25px;
+    animation: slideUp .2s ease;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+
+.modal-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.modal-title h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.close {
+    border: 0;
+    background: #f0f3f1;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+}
+
+.priority-options {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.priority {
+    flex: 1;
+    border: 2px solid transparent;
+    border-radius: 13px;
+    padding: 11px 5px;
+    background: #f3f5f4;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.priority.selected.red-option {
+    background: #fbe1e2;
+    border-color: #e95f63;
+}
+
+.priority.selected.green-option {
+    background: #e1f2e9;
+    border-color: #5FAF8A;
+}
+
+.priority.selected.blue-option {
+    background: #e7eef3;
+    border-color: #8aa8bd;
+}
+
+textarea,
+input[type="date"],
+input[type="time"] {
+    width: 100%;
+    border: 1px solid #dfe5e1;
+    border-radius: 14px;
+    padding: 14px;
+    outline: none;
+    background: #fafbfa;
+}
+
+textarea {
+    height: 90px;
+    resize: none;
+    margin-bottom: 12px;
+}
+
+textarea:focus,
+input:focus {
+    border-color: #5FAF8A;
+}
+
+.date-time {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 13px;
+}
+
+.input-label {
+    color: #7c8781;
+    font-size: 10px;
+    margin: 0 0 5px 3px;
+}
+
+.permanent {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #59645f;
+    font-size: 13px;
+    margin: 8px 0 20px;
+}
+
+.permanent input {
+    width: 18px;
+    height: 18px;
+    accent-color: #5FAF8A;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 9px;
+}
+
+.cancel,
+.create {
+    flex: 1;
+    border: 0;
+    border-radius: 14px;
+    padding: 14px;
+    font-weight: 700;
+}
+
+.cancel {
+    background: #edf0ee;
+    color: #59635e;
+}
+
+.create {
+    background: #5FAF8A;
+    color: white;
+}
+
+@media (min-width: 481px) {
+    body {
+        padding: 20px 0;
+    }
+
+    .app {
+        min-height: calc(100vh - 40px);
+        border-radius: 28px;
+        box-shadow: 0 10px 45px rgba(30,50,40,.12);
+    }
+
+    .bottom-nav,
+    .add-button {
+        position: absolute;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <div class="header">
+        <div class="profile">👤</div>
+
+        <div class="header-title">
+            <h1>Система планирования</h1>
+            <p id="todayText"></p>
+        </div>
+
+        <div class="header-buttons">
+            <button class="icon-button">⚙️</button>
+            <button class="icon-button">🗂️</button>
+        </div>
+    </div>
+
+    <section class="calendar-section">
+
+        <div class="month-header">
+            <button class="month-arrow" onclick="changeMonth(-1)">‹</button>
+            <h2 id="monthName"></h2>
+            <button class="month-arrow" onclick="changeMonth(1)">›</button>
+        </div>
+
+        <div class="weekdays">
+            <div>ПН</div>
+            <div>ВТ</div>
+            <div>СР</div>
+            <div>ЧТ</div>
+            <div>ПТ</div>
+            <div>СБ</div>
+            <div>ВС</div>
+        </div>
+
+        <div class="calendar" id="calendar"></div>
+
+    </section>
+
+    <section class="tasks-section">
+
+        <div class="tabs">
+
+            <button class="tab active important"
+                    onclick="setCategory('important', this)">
+                Важные
+            </button>
+
+            <button class="tab secondary"
+                    onclick="setCategory('secondary', this)">
+                Побочные
+            </button>
+
+            <button class="tab notes"
+                    onclick="setCategory('note', this)">
+                Заметки
+            </button>
+
+        </div>
+
+        <div id="taskContainer"></div>
+
+    </section>
+
+    <button class="add-button" onclick="openModal()">
+        <span>＋</span> Добавить задачу
+    </button>
+
+    <nav class="bottom-nav">
+
+        <button class="nav-item active">
+            <span class="nav-icon">⌂</span>
+            Главная
+        </button>
+
+        <button class="nav-item">
+            <span class="nav-icon">▦</span>
+            Календарь
+        </button>
+
+        <button class="nav-item" onclick="openModal()">
+            <span class="nav-icon">＋</span>
+            Добавить
+        </button>
+
+        <button class="nav-item">
+            <span class="nav-icon">✓</span>
+            Выполнено
+        </button>
+
+        <button class="nav-item">
+            <span class="nav-icon">♙</span>
+            Профиль
+        </button>
+
+    </nav>
+
+</div>
+
+
+<!-- ОКНО ДОБАВЛЕНИЯ ЗАДАЧИ -->
+
+<div class="modal-bg" id="modalBg">
+
+    <div class="modal">
+
+        <div class="modal-title">
+            <h2>Новая задача</h2>
+            <button class="close" onclick="closeModal()">✕</button>
+        </div>
+
+        <div class="priority-options">
+
+            <button class="priority selected red-option"
+                    onclick="selectPriority('important', this)">
+                🔴 Важная
+            </button>
+
+            <button class="priority green-option"
+                    onclick="selectPriority('secondary', this)">
+                🟢 Побочная
+            </button>
+
+            <button class="priority blue-option"
+                    onclick="selectPriority('note', this)">
+                🔵 Заметка
+            </button>
+
+        </div>
+
+        <textarea id="taskInput"
+                  placeholder="Введите задачу..."></textarea>
+
+        <div class="date-time">
+
+            <div>
+                <p class="input-label">Дата</p>
+                <input type="date" id="dateInput">
+            </div>
+
+            <div>
+                <p class="input-label">Время</p>
+                <input type="time" id="timeInput">
+            </div>
+
+        </div>
+
+        <label class="permanent">
+            <input type="checkbox" id="permanentInput">
+            Постоянная задача
+        </label>
+
+        <div class="modal-actions">
+            <button class="cancel" onclick="closeModal()">
+                Отмена
+            </button>
+
+            <button class="create" onclick="createTask()">
+                Создать
+            </button>
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const today = new Date();
+
+let currentMonth = today.getMonth();
+let currentYear = today.getFullYear();
+
+let selectedCategory = "important";
+
+let selectedPriority = "important";
+
+let tasks = JSON.parse(localStorage.getItem("planningTasks")) || [];
+
+
+// ДЕМО-ЗАДАЧИ ПРИ ПЕРВОМ ЗАПУСКЕ
+
+if (tasks.length === 0) {
+
+    const date = formatDate(today);
+
+    tasks = [
+        {
+            id: Date.now() + 1,
+            text: "Поздравить Бабу Зину",
+            category: "important",
+            date: date,
+            time: "16:00",
+            permanent: false,
+            completed: false
+        },
+        {
+            id: Date.now() + 2,
+            text: "Забрать ноутбук с ремонта",
+            category: "important",
+            date: date,
+            time: "17:00",
+            permanent: false,
+            completed: false
+        },
+        {
+            id: Date.now() + 3,
+            text: "Помыть пол до прихода жены",
+            category: "secondary",
+            date: date,
+            time: "20:00",
+            permanent: false,
+            completed: false
+        },
+        {
+            id: Date.now() + 4,
+            text: "#дома отключают свет до 16",
+            category: "note",
+            date: date,
+            time: "",
+            permanent: false,
+            completed: false
+        }
+    ];
+
+    saveTasks();
+}
+
+
+// ФОРМАТ ДАТЫ
+
+function formatDate(date) {
+
+    const y = date.getFullYear();
+
+    const m = String(date.getMonth() + 1).padStart(2, "0");
+
+    const d = String(date.getDate()).padStart(2, "0");
+
+    return `${y}-${m}-${d}`;
+}
+
+
+// СОХРАНЕНИЕ
+
+function saveTasks() {
+
+    localStorage.setItem(
+        "planningTasks",
+        JSON.stringify(tasks)
+    );
+
+}
+
+
+// НАЗВАНИЕ ТЕКУЩЕГО ДНЯ
+
+function updateTodayText() {
+
+    const options = {
+        weekday: "long",
+        day: "numeric",
+        month: "long"
+    };
+
+    document.getElementById("todayText").textContent =
+        today.toLocaleDateString("ru-RU", options);
+
+}
+
+
+// КАЛЕНДАРЬ
+
+function renderCalendar() {
+
+    const calendar = document.getElementById("calendar");
+
+    calendar.innerHTML = "";
+
+    const monthName =
+        new Date(currentYear, currentMonth, 1)
+        .toLocaleDateString("ru-RU", {
+            month: "long",
+            year: "numeric"
+        });
+
+    document.getElementById("monthName").textContent =
+        monthName.charAt(0).toUpperCase() + monthName.slice(1);
+
+
+    const firstDay =
+        new Date(currentYear, currentMonth, 1).getDay();
+
+    let startDay = firstDay === 0 ? 6 : firstDay - 1;
+
+    const daysInMonth =
+        new Date(currentYear, currentMonth + 1, 0).getDate();
+
+
+    for (let i = 0; i < startDay; i++) {
+
+        const empty = document.createElement("div");
+
+        empty.className = "day empty";
+
+        calendar.appendChild(empty);
+
+    }
+
+
+    for (let day = 1; day <= daysInMonth; day++) {
+
+        const cell = document.createElement("div");
+
+        cell.className = "day";
+
+        const dateString =
+            `${currentYear}-${String(currentMonth + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+
+        if (dateString === formatDate(today)) {
+
+            cell.classList.add("today");
+
+        }
+
+
+        const dayNumber = document.createElement("div");
+
+        dayNumber.className = "day-number";
+
+        dayNumber.textContent = day;
+
+        cell.appendChild(dayNumber);
+
+
+        const dayTasks =
+            tasks.filter(t => t.date === dateString && !t.completed);
+
+
+        dayTasks.slice(0, 2).forEach(task => {
+
+            const taskElement = document.createElement("div");
+
+            taskElement.className = "day-task";
+
+
+            const dot = document.createElement("span");
+
+            dot.className = "task-dot " +
+                (task.category === "important"
+                    ? "red"
+                    : task.category === "secondary"
+                    ? "green"
+                    : "blue");
+
+
+            taskElement.appendChild(dot);
+
+            taskElement.appendChild(
+                document.createTextNode(task.text)
+            );
+
+            cell.appendChild(taskElement);
+
+        });
+
+
+        calendar.appendChild(cell);
+
+    }
+
+}
+
+
+// ПЕРЕКЛЮЧЕНИЕ МЕСЯЦА
+
+function changeMonth(direction) {
+
+    currentMonth += direction;
+
+    if (currentMonth < 0) {
+
+        currentMonth = 11;
+
+        currentYear--;
+
+    }
+
+    if (currentMonth > 11) {
+
+        currentMonth = 0;
+
+        currentYear++;
+
+    }
+
+    renderCalendar();
+
+}
+
+
+// КАТЕГОРИЯ
+
+function setCategory(category, button) {
+
+    selectedCategory = category;
+
+    document.querySelectorAll(".tab").forEach(tab => {
+
+        tab.classList.remove("active");
+
+    });
+
+    button.classList.add("active");
+
+    renderTasks();
+
+}
+
+
+// ОТОБРАЖЕНИЕ ЗАДАЧ
+
+function renderTasks() {
+
+    const container =
+        document.getElementById("taskContainer");
+
+    container.innerHTML = "";
+
+
+    const activeTasks =
+        tasks
+        .filter(t =>
+            t.category === selectedCategory &&
+            !t.completed
+        )
+        .sort((a, b) =>
+            (a.date + a.time).localeCompare(b.date + b.time)
+        );
+
+
+    if (activeTasks.length === 0) {
+
+        container.innerHTML = `
+            <div style="
+                text-align:center;
+                padding:40px 20px;
+                color:#9aa39e;
+                font-size:13px;
+            ">
+                Здесь пока нет задач
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    let lastDate = "";
+
+
+    activeTasks.forEach(task => {
+
+        if (task.date !== lastDate) {
+
+            lastDate = task.date;
+
+            const dateTitle =
+                document.createElement("div");
+
+            dateTitle.className = "date-title";
+
+            const date = new Date(task.date + "T12:00:00");
+
+            dateTitle.textContent =
+                date.toLocaleDateString("ru-RU", {
+                    day: "numeric",
+                    month: "long"
+                });
+
+            container.appendChild(dateTitle);
+
+        }
+
+
+        const taskElement =
+            document.createElement("div");
+
+        taskElement.className =
+            "task " + task.category;
+
+
+        const check =
+            document.createElement("button");
+
+        check.className = "check";
+
+        check.onclick = () =>
+            completeTask(task.id);
+
+
+        const info =
+            document.createElement("div");
+
+        info.className = "task-info";
+
+
+        const name =
+            document.createElement("div");
+
+        name.className =
+            "task-name " +
+            (task.category === "note"
+                ? "note-text"
+                : "");
+
+        name.textContent = task.text;
+
+
+        const meta =
+            document.createElement("div");
+
+        meta.className = "task-meta";
+
+        if (task.permanent) {
+
+            meta.textContent = "↻ Постоянная задача";
+
+        } else {
+
+            meta.textContent = "Сегодня";
+
+        }
+
+
+        info.appendChild(name);
+
+        info.appendChild(meta);
+
+
+        const time =
+            document.createElement("div");
+
+        time.className = "task-time";
+
+        time.textContent =
+            task.time || "";
+
+
+        taskElement.appendChild(check);
+
+        taskElement.appendChild(info);
+
+        taskElement.appendChild(time);
+
+        container.appendChild(taskElement);
+
+    });
+
+}
+
+
+// ВЫПОЛНЕНИЕ
+
+function completeTask(id) {
+
+    const task =
+        tasks.find(t => t.id === id);
+
+    if (!task) return;
+
+    task.completed = true;
+
+    saveTasks();
+
+    renderTasks();
+
+    renderCalendar();
+
+}
+
+
+// ОТКРЫТИЕ ОКНА
+
+function openModal() {
+
+    document
+        .getElementById("modalBg")
+        .classList.add("show");
+
+
+    document
+        .getElementById("dateInput")
+        .value = formatDate(today);
+
+
+    document
+        .getElementById("timeInput")
+        .value = "";
+
+
+    document
+        .getElementById("taskInput")
+        .value = "";
+
+}
+
+
+// ЗАКРЫТИЕ
+
+function closeModal() {
+
+    document
+        .getElementById("modalBg")
+        .classList.remove("show");
+
+}
+
+
+// ВЫБОР ВАЖНОСТИ
+
+function selectPriority(category, button) {
+
+    selectedPriority = category;
+
+    document
+        .querySelectorAll(".priority")
+        .forEach(b => b.classList.remove("selected"));
+
+    button.classList.add("selected");
+
+}
+
+
+// СОЗДАНИЕ
+
+function createTask() {
+
+    const text =
+        document.getElementById("taskInput")
+        .value.trim();
+
+    const date =
+        document.getElementById("dateInput").value;
+
+    const time =
+        document.getElementById("timeInput").value;
+
+    const permanent =
+        document.getElementById("permanentInput").checked;
+
+
+    if (!text) {
+
+        alert("Введите задачу");
+
+        return;
+
+    }
+
+
+    if (!date) {
+
+        alert("Выберите дату");
+
+        return;
+
+    }
+
+
+    tasks.push({
+
+        id: Date.now(),
+
+        text: text,
+
+        category: selectedPriority,
+
+        date: date,
+
+        time: time,
+
+        permanent: permanent,
+
+        completed: false
+
+    });
+
+
+    saveTasks();
+
+    closeModal();
+
+    renderCalendar();
+
+    renderTasks();
+
+}
+
+
+// ЗАПУСК
+
+updateTodayText();
+
+renderCalendar();
+
+renderTasks();
+
+</script>
+
+</body>
+</html>
