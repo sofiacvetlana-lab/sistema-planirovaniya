@@ -25,7 +25,7 @@ jobs:
       - name: Настроить Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: "9.6"
+          gradle-version: "8.10.2"
 
       - name: Собрать APK
         working-directory: android-project
