@@ -1,0 +1,38 @@
+name: Build Android APK
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Скачать файлы проекта
+        uses: actions/checkout@v4
+
+      - name: Распаковать Android проект
+        run: |
+          unzip -o sistema-planirovaniya-android-widget.zip -d android-project
+          rm -rf android-project/.github
+
+      - name: Настроить Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Настроить Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "9.6"
+
+      - name: Собрать APK
+        working-directory: android-project
+        run: gradle :app:assembleDebug
+
+      - name: Сохранить APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: sistema-planirovaniya-widget
+          path: android-project/app/build/outputs/apk/debug/app-debug.apk
