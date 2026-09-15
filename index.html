@@ -9,508 +9,503 @@
 <link rel="manifest" href="./manifest.json">
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:#f4f7f5;
-  color:#26352d;
+margin:0;
+font-family:Arial,sans-serif;
+background:#f4f7f5;
+color:#26352d;
 }
 
-button{
-  font-family:inherit;
+button,input{
+font-family:inherit;
 }
 
 .app{
-  max-width:700px;
-  margin:auto;
-  min-height:100vh;
-  background:#fff;
+max-width:700px;
+margin:auto;
+min-height:100vh;
+background:white;
 }
 
 header{
-  padding:18px 20px;
-  background:#5FAF8A;
-  color:white;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+padding:18px 20px;
+background:#5FAF8A;
+color:white;
+display:flex;
+align-items:center;
+justify-content:space-between;
 }
 
 .header-title{
-  font-size:21px;
-  font-weight:bold;
+font-size:21px;
+font-weight:bold;
 }
 
 .header-date{
-  font-size:13px;
-  opacity:.9;
-  margin-top:4px;
+font-size:13px;
+opacity:.9;
+margin-top:4px;
 }
 
 .header-icon{
-  font-size:26px;
+font-size:28px;
 }
 
 .page{
-  display:none;
-  padding:20px;
-  padding-bottom:100px;
+display:none;
+padding:20px;
+padding-bottom:100px;
 }
 
 .page.active{
-  display:block;
+display:block;
 }
 
 .section-title{
-  font-size:20px;
-  font-weight:bold;
-  margin-bottom:15px;
-}
-
-.empty{
-  text-align:center;
-  color:#8b968f;
-  padding:40px 10px;
-}
-
-.task{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:14px;
-  margin-bottom:10px;
-  border-radius:15px;
-  background:#f4f7f5;
-}
-
-.task-circle{
-  width:23px;
-  height:23px;
-  border:2px solid #9ca8a1;
-  border-radius:50%;
-  flex-shrink:0;
-  cursor:pointer;
-}
-
-.task-content{
-  flex:1;
-  min-width:0;
-}
-
-.task-title{
-  font-size:16px;
-  font-weight:600;
-  word-break:break-word;
-}
-
-.task-meta{
-  font-size:12px;
-  color:#89948d;
-  margin-top:5px;
-}
-
-.task-actions{
-  display:flex;
-  gap:5px;
-}
-
-.task-actions button{
-  border:0;
-  background:transparent;
-  cursor:pointer;
-  font-size:16px;
-}
-
-.priority-important{
-  border-left:5px solid #e05252;
-}
-
-.priority-secondary{
-  border-left:5px solid #5FAF8A;
-}
-
-.priority-note{
-  border-left:5px solid #7c9bb5;
-}
-
-.important-text{
-  color:#d43f3f;
-  text-transform:uppercase;
-}
-
-.secondary-text{
-  color:#4e9874;
-}
-
-.note-text{
-  color:#647f95;
+font-size:20px;
+font-weight:bold;
+margin-bottom:15px;
 }
 
 .add-button{
-  width:100%;
-  border:0;
-  background:#5FAF8A;
-  color:white;
-  padding:16px;
-  border-radius:16px;
-  font-size:17px;
-  font-weight:bold;
-  cursor:pointer;
-  margin-bottom:20px;
-}
-
-.add-button:active{
-  transform:scale(.98);
+width:100%;
+border:0;
+background:#5FAF8A;
+color:white;
+padding:16px;
+border-radius:16px;
+font-size:17px;
+font-weight:bold;
+cursor:pointer;
+margin-bottom:20px;
 }
 
 .category-tabs{
-  display:flex;
-  gap:8px;
-  overflow-x:auto;
-  margin-bottom:18px;
-  padding-bottom:3px;
+display:flex;
+gap:8px;
+overflow-x:auto;
+margin-bottom:18px;
 }
 
 .category-tabs button{
-  white-space:nowrap;
-  border:0;
-  padding:10px 15px;
-  border-radius:20px;
-  background:#edf1ee;
-  color:#58655e;
-  cursor:pointer;
+white-space:nowrap;
+border:0;
+padding:10px 15px;
+border-radius:20px;
+background:#edf1ee;
+color:#58655e;
+cursor:pointer;
 }
 
 .category-tabs button.active{
-  background:#5FAF8A;
-  color:white;
+background:#5FAF8A;
+color:white;
+}
+
+.task{
+display:flex;
+align-items:center;
+gap:12px;
+padding:14px;
+margin-bottom:10px;
+border-radius:15px;
+background:#f4f7f5;
+}
+
+.task-circle{
+width:23px;
+height:23px;
+border:2px solid #9ca8a1;
+border-radius:50%;
+flex-shrink:0;
+cursor:pointer;
+}
+
+.task-content{
+flex:1;
+min-width:0;
+}
+
+.task-title{
+font-size:16px;
+font-weight:600;
+word-break:break-word;
+}
+
+.task-meta{
+font-size:12px;
+color:#89948d;
+margin-top:5px;
+}
+
+.task-actions{
+display:flex;
+gap:5px;
+}
+
+.task-actions button{
+border:0;
+background:transparent;
+cursor:pointer;
+font-size:16px;
+}
+
+.priority-important{
+border-left:5px solid #e05252;
+}
+
+.priority-secondary{
+border-left:5px solid #5FAF8A;
+}
+
+.priority-note{
+border-left:5px solid #7c9bb5;
+}
+
+.important-text{
+color:#d43f3f;
+text-transform:uppercase;
+}
+
+.secondary-text{
+color:#4e9874;
+}
+
+.note-text{
+color:#647f95;
+}
+
+.empty{
+text-align:center;
+color:#8b968f;
+padding:40px 10px;
 }
 
 .modal-bg{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.45);
-  z-index:100;
-  align-items:flex-end;
-  justify-content:center;
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.45);
+z-index:100;
+align-items:flex-end;
+justify-content:center;
 }
 
 .modal-bg.show{
-  display:flex;
+display:flex;
 }
 
 .modal{
-  width:100%;
-  max-width:700px;
-  background:white;
-  border-radius:25px 25px 0 0;
-  padding:22px;
-  max-height:90vh;
-  overflow:auto;
+width:100%;
+max-width:700px;
+background:white;
+border-radius:25px 25px 0 0;
+padding:22px;
+max-height:90vh;
+overflow:auto;
 }
 
 .modal h2{
-  margin-top:0;
-}
-
-input,
-select{
-  width:100%;
-  padding:14px;
-  border:1px solid #d6ddd8;
-  border-radius:12px;
-  font-size:16px;
-  margin-bottom:14px;
-  background:white;
+margin-top:0;
 }
 
 label{
-  display:block;
-  font-size:14px;
-  color:#66736c;
-  margin-bottom:6px;
+display:block;
+font-size:14px;
+color:#66736c;
+margin-bottom:6px;
+}
+
+input{
+width:100%;
+padding:14px;
+border:1px solid #d6ddd8;
+border-radius:12px;
+font-size:16px;
+margin-bottom:14px;
+background:white;
 }
 
 .priority-buttons{
-  display:flex;
-  gap:10px;
-  margin-bottom:15px;
+display:flex;
+gap:10px;
+margin-bottom:15px;
 }
 
 .priority-button{
-  flex:1;
-  padding:12px;
-  border-radius:12px;
-  border:2px solid transparent;
-  cursor:pointer;
-  font-weight:bold;
+flex:1;
+padding:12px;
+border-radius:12px;
+border:2px solid transparent;
+cursor:pointer;
+font-weight:bold;
 }
 
 .priority-button.red{
-  background:#ffe6e6;
-  color:#c73d3d;
+background:#ffe6e6;
+color:#c73d3d;
 }
 
 .priority-button.green{
-  background:#e2f2e8;
-  color:#438060;
+background:#e2f2e8;
+color:#438060;
 }
 
 .priority-button.blue{
-  background:#e5edf4;
-  color:#56728b;
+background:#e5edf4;
+color:#56728b;
 }
 
 .priority-button.selected{
-  border-color:#333;
+border-color:#333;
 }
 
 .checkbox-row{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin:10px 0 18px;
+display:flex;
+align-items:center;
+gap:10px;
+margin:10px 0 18px;
 }
 
 .checkbox-row input{
-  width:auto;
-  margin:0;
+width:auto;
+margin:0;
 }
 
 .modal-buttons{
-  display:flex;
-  gap:10px;
+display:flex;
+gap:10px;
 }
 
 .modal-buttons button{
-  flex:1;
-  padding:14px;
-  border:0;
-  border-radius:13px;
-  font-size:16px;
-  cursor:pointer;
+flex:1;
+padding:14px;
+border:0;
+border-radius:13px;
+font-size:16px;
+cursor:pointer;
 }
 
 .cancel{
-  background:#edf0ee;
-  color:#555;
+background:#edf0ee;
+color:#555;
 }
 
 .save{
-  background:#5FAF8A;
-  color:white;
-  font-weight:bold;
+background:#5FAF8A;
+color:white;
+font-weight:bold;
 }
 
 .calendar-header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:15px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-bottom:15px;
 }
 
 .calendar-header button{
-  border:0;
-  background:#edf1ee;
-  width:40px;
-  height:40px;
-  border-radius:12px;
-  cursor:pointer;
-  font-size:20px;
+border:0;
+background:#edf1ee;
+width:40px;
+height:40px;
+border-radius:12px;
+cursor:pointer;
+font-size:20px;
 }
 
 .month-title{
-  font-size:18px;
-  font-weight:bold;
+font-size:18px;
+font-weight:bold;
 }
 
 .calendar{
-  display:grid;
-  grid-template-columns:repeat(7,1fr);
-  gap:5px;
+display:grid;
+grid-template-columns:repeat(7,1fr);
+gap:5px;
 }
 
 .weekday{
-  text-align:center;
-  font-size:11px;
-  color:#89948d;
-  padding:5px 0;
+text-align:center;
+font-size:11px;
+color:#89948d;
+padding:5px 0;
 }
 
 .day{
-  min-height:65px;
-  padding:7px;
-  border-radius:10px;
-  background:#f5f7f6;
-  cursor:pointer;
-  font-size:13px;
+min-height:65px;
+padding:7px;
+border-radius:10px;
+background:#f5f7f6;
+cursor:pointer;
+font-size:13px;
 }
 
 .day.today{
-  background:#dcefe5;
-  border:2px solid #5FAF8A;
+background:#dcefe5;
+border:2px solid #5FAF8A;
 }
 
 .day-number{
-  font-weight:bold;
+font-weight:bold;
 }
 
 .day-task{
-  font-size:9px;
-  margin-top:4px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
+font-size:9px;
+margin-top:4px;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
 }
 
 .profile-avatar{
-  width:80px;
-  height:80px;
-  border-radius:50%;
-  background:#dcefe5;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:38px;
-  margin:10px auto;
+width:80px;
+height:80px;
+border-radius:50%;
+background:#dcefe5;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:38px;
+margin:10px auto;
 }
 
 .profile-name{
-  text-align:center;
-  font-size:22px;
-  font-weight:bold;
+text-align:center;
+font-size:22px;
+font-weight:bold;
 }
 
 .profile-sub{
-  text-align:center;
-  color:#89948d;
-  margin-top:5px;
-  margin-bottom:25px;
+text-align:center;
+color:#89948d;
+margin-top:5px;
+margin-bottom:25px;
 }
 
 .stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
-  margin-bottom:25px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+margin-bottom:25px;
 }
 
 .stat{
-  background:#f4f7f5;
-  border-radius:15px;
-  padding:15px 5px;
-  text-align:center;
+background:#f4f7f5;
+border-radius:15px;
+padding:15px 5px;
+text-align:center;
 }
 
 .stat-number{
-  font-size:24px;
-  font-weight:bold;
-  color:#5FAF8A;
+font-size:24px;
+font-weight:bold;
+color:#5FAF8A;
 }
 
 .stat-label{
-  font-size:12px;
-  color:#7d8982;
-  margin-top:5px;
+font-size:12px;
+color:#7d8982;
+margin-top:5px;
 }
 
 .notification-box{
-  background:#f4f7f5;
-  border-radius:16px;
-  padding:16px;
-  margin-top:20px;
+background:#f4f7f5;
+border-radius:16px;
+padding:16px;
+margin-top:20px;
 }
 
 .notification-button{
-  width:100%;
-  padding:15px;
-  border:0;
-  border-radius:14px;
-  background:#5FAF8A;
-  color:white;
-  font-size:16px;
-  font-weight:600;
-  cursor:pointer;
+width:100%;
+padding:15px;
+border:0;
+border-radius:14px;
+background:#5FAF8A;
+color:white;
+font-size:16px;
+font-weight:600;
+cursor:pointer;
+}
+
+.notification-test{
+width:100%;
+padding:15px;
+border:0;
+border-radius:14px;
+background:#edf1ee;
+color:#4f5d55;
+font-size:16px;
+font-weight:600;
+cursor:pointer;
+margin-top:10px;
 }
 
 .notification-status{
-  margin-top:10px;
-  text-align:center;
-  color:#777;
-  font-size:14px;
+margin-top:10px;
+text-align:center;
+color:#777;
+font-size:14px;
 }
 
 .bottom-nav{
-  position:fixed;
-  bottom:0;
-  left:50%;
-  transform:translateX(-50%);
-  width:100%;
-  max-width:700px;
-  background:white;
-  border-top:1px solid #e2e7e3;
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  padding:8px 5px;
-  z-index:50;
+position:fixed;
+bottom:0;
+left:50%;
+transform:translateX(-50%);
+width:100%;
+max-width:700px;
+background:white;
+border-top:1px solid #e2e7e3;
+display:grid;
+grid-template-columns:repeat(5,1fr);
+padding:8px 5px;
+z-index:50;
 }
 
 .nav-button{
-  border:0;
-  background:white;
-  color:#89948d;
-  padding:7px 2px;
-  cursor:pointer;
-  font-size:11px;
+border:0;
+background:white;
+color:#89948d;
+padding:7px 2px;
+cursor:pointer;
+font-size:11px;
 }
 
 .nav-button span{
-  display:block;
-  font-size:21px;
-  margin-bottom:2px;
+display:block;
+font-size:21px;
+margin-bottom:2px;
 }
 
 .nav-button.active{
-  color:#5FAF8A;
-  font-weight:bold;
+color:#5FAF8A;
+font-weight:bold;
 }
 
 .toast{
-  position:fixed;
-  bottom:85px;
-  left:50%;
-  transform:translateX(-50%);
-  background:#26352d;
-  color:white;
-  padding:12px 18px;
-  border-radius:12px;
-  display:none;
-  z-index:200;
-  font-size:14px;
+position:fixed;
+bottom:85px;
+left:50%;
+transform:translateX(-50%);
+background:#26352d;
+color:white;
+padding:12px 18px;
+border-radius:12px;
+display:none;
+z-index:200;
+font-size:14px;
 }
 
 .toast.show{
-  display:block;
+display:block;
 }
 
 .completed .task-title{
-  text-decoration:line-through;
-  color:#999;
-}
-
-@media(min-width:701px){
-  body{
-    background:#e8eee9;
-  }
-
-  .app{
-    box-shadow:0 0 30px rgba(0,0,0,.08);
-  }
+text-decoration:line-through;
+color:#999;
 }
 </style>
 </head>
@@ -520,29 +515,48 @@ label{
 <div class="app">
 
 <header>
-  <div>
-    <div class="header-title">Система планирования</div>
-    <div class="header-date" id="headerDate"></div>
-  </div>
-  <div class="header-icon">✓</div>
+
+<div>
+<div class="header-title">Система планирования</div>
+<div class="header-date" id="headerDate"></div>
+</div>
+
+<div class="header-icon">✓</div>
+
 </header>
+
 
 <!-- ГЛАВНАЯ -->
 
 <section id="home" class="page active">
 
 <button class="add-button" onclick="openModal()">
-  ＋ Добавить задачу
+＋ Добавить задачу
 </button>
 
 <div class="category-tabs">
-  <button class="active" onclick="setCategory('all', this)">Все</button>
-  <button onclick="setCategory('important', this)">Важные</button>
-  <button onclick="setCategory('secondary', this)">Побочные</button>
-  <button onclick="setCategory('note', this)">Заметки</button>
+
+<button class="active" onclick="setCategory('all',this)">
+Все
+</button>
+
+<button onclick="setCategory('important',this)">
+Важные
+</button>
+
+<button onclick="setCategory('secondary',this)">
+Побочные
+</button>
+
+<button onclick="setCategory('note',this)">
+Заметки
+</button>
+
 </div>
 
-<div class="section-title">Сегодня</div>
+<div class="section-title">
+Сегодня
+</div>
 
 <div id="todayTasks"></div>
 
@@ -553,29 +567,46 @@ label{
 
 <section id="calendarPage" class="page">
 
-<div class="section-title">Календарь</div>
+<div class="section-title">
+Календарь
+</div>
 
 <div class="calendar-header">
-  <button onclick="changeMonth(-1)">‹</button>
-  <div class="month-title" id="monthTitle"></div>
-  <button onclick="changeMonth(1)">›</button>
+
+<button onclick="changeMonth(-1)">
+‹
+</button>
+
+<div class="month-title" id="monthTitle"></div>
+
+<button onclick="changeMonth(1)">
+›
+</button>
+
 </div>
 
 <div class="calendar">
-  <div class="weekday">Пн</div>
-  <div class="weekday">Вт</div>
-  <div class="weekday">Ср</div>
-  <div class="weekday">Чт</div>
-  <div class="weekday">Пт</div>
-  <div class="weekday">Сб</div>
-  <div class="weekday">Вс</div>
+
+<div class="weekday">Пн</div>
+<div class="weekday">Вт</div>
+<div class="weekday">Ср</div>
+<div class="weekday">Чт</div>
+<div class="weekday">Пт</div>
+<div class="weekday">Сб</div>
+<div class="weekday">Вс</div>
+
 </div>
 
 <div class="calendar" id="calendarGrid"></div>
 
-<div style="margin-top:25px;">
-  <div class="section-title">Задачи месяца</div>
-  <div id="monthTasks"></div>
+<div style="margin-top:25px">
+
+<div class="section-title">
+Задачи месяца
+</div>
+
+<div id="monthTasks"></div>
+
 </div>
 
 </section>
@@ -585,7 +616,9 @@ label{
 
 <section id="completedPage" class="page">
 
-<div class="section-title">Выполненные задачи</div>
+<div class="section-title">
+Выполненные задачи
+</div>
 
 <div id="completedTasks"></div>
 
@@ -596,7 +629,9 @@ label{
 
 <section id="profile" class="page">
 
-<div class="profile-avatar">👤</div>
+<div class="profile-avatar">
+👤
+</div>
 
 <div class="profile-name">
 Мой профиль
@@ -625,26 +660,39 @@ label{
 
 </div>
 
+
 <div class="notification-box">
 
-<div style="font-weight:bold;font-size:17px;margin-bottom:7px;">
+<div style="font-weight:bold;font-size:17px;margin-bottom:7px">
 🔔 Уведомления
 </div>
 
-<div style="font-size:14px;color:#777;margin-bottom:14px;">
+<div style="font-size:14px;color:#777;margin-bottom:14px">
 Разрешите уведомления, чтобы приложение могло напоминать о задачах.
 </div>
 
 <button
 class="notification-button"
 onclick="requestNotifications()">
+
 🔔 Разрешить уведомления
+
+</button>
+
+<button
+class="notification-test"
+onclick="testNotification()">
+
+🧪 Проверить уведомление
+
 </button>
 
 <div
 id="notificationStatus"
 class="notification-status">
+
 Проверяем статус...
+
 </div>
 
 </div>
@@ -652,33 +700,53 @@ class="notification-status">
 </section>
 
 
-<!-- НИЖНЯЯ НАВИГАЦИЯ -->
+<!-- НАВИГАЦИЯ -->
 
 <nav class="bottom-nav">
 
-<button class="nav-button active" onclick="showPage('home', this)">
+<button
+class="nav-button active"
+onclick="showPage('home',this)">
+
 <span>🏠</span>
 Главная
+
 </button>
 
-<button class="nav-button" onclick="showPage('calendarPage', this)">
+<button
+class="nav-button"
+onclick="showPage('calendarPage',this)">
+
 <span>📅</span>
 Календарь
+
 </button>
 
-<button class="nav-button" onclick="openModal()">
+<button
+class="nav-button"
+onclick="openModal()">
+
 <span>＋</span>
 Добавить
+
 </button>
 
-<button class="nav-button" onclick="showPage('completedPage', this)">
+<button
+class="nav-button"
+onclick="showPage('completedPage',this)">
+
 <span>✓</span>
 Выполнено
+
 </button>
 
-<button class="nav-button" onclick="showPage('profile', this)">
+<button
+class="nav-button"
+onclick="showPage('profile',this)">
+
 <span>👤</span>
 Профиль
+
 </button>
 
 </nav>
@@ -686,22 +754,29 @@ class="notification-status">
 </div>
 
 
-<!-- МОДАЛЬНОЕ ОКНО -->
+<!-- ОКНО СОЗДАНИЯ ЗАДАЧИ -->
 
 <div class="modal-bg" id="modalBg">
 
 <div class="modal">
 
-<h2 id="modalTitle">Новая задача</h2>
+<h2 id="modalTitle">
+Новая задача
+</h2>
 
-<label>Название задачи</label>
+<label>
+Название задачи
+</label>
 
 <input
 type="text"
 id="taskText"
-placeholder="Например: Поздравить Бабу Зину">
+placeholder="Например: Поздравить Бабу Зину"
+>
 
-<label>Важность</label>
+<label>
+Важность
+</label>
 
 <div class="priority-buttons">
 
@@ -709,38 +784,55 @@ placeholder="Например: Поздравить Бабу Зину">
 class="priority-button red selected"
 id="priorityImportant"
 onclick="selectPriority('important')">
+
 🔴 Важная
+
 </button>
 
 <button
 class="priority-button green"
 id="prioritySecondary"
 onclick="selectPriority('secondary')">
+
 🟢 Побочная
+
 </button>
 
 <button
 class="priority-button blue"
 id="priorityNote"
 onclick="selectPriority('note')">
+
 🔵 Заметка
+
 </button>
 
 </div>
 
-<label>Дата</label>
+<label>
+Дата
+</label>
 
-<input type="date" id="taskDate">
+<input
+type="date"
+id="taskDate"
+>
 
-<label>Время</label>
+<label>
+Время
+</label>
 
-<input type="time" id="taskTime">
+<input
+type="time"
+id="taskTime"
+>
 
 <div class="checkbox-row">
 
 <input
 type="checkbox"
-id="taskRecurring">
+id="taskRecurring"
+>
 
 <label for="taskRecurring">
 Постоянная задача
@@ -753,13 +845,17 @@ id="taskRecurring">
 <button
 class="cancel"
 onclick="closeModal()">
+
 Отмена
+
 </button>
 
 <button
 class="save"
 onclick="saveTask()">
+
 Создать
+
 </button>
 
 </div>
@@ -774,8 +870,9 @@ onclick="saveTask()">
 
 <script>
 
-let tasks = JSON.parse(
-  localStorage.getItem("planningTasksFinal") || "[]"
+let tasks =
+JSON.parse(
+localStorage.getItem("planningTasksFinal") || "[]"
 );
 
 let selectedPriority = "important";
@@ -789,354 +886,400 @@ let currentMonth = new Date();
 
 function saveToStorage(){
 
-  localStorage.setItem(
-    "planningTasksFinal",
-    JSON.stringify(tasks)
-  );
+localStorage.setItem(
+"planningTasksFinal",
+JSON.stringify(tasks)
+);
 
 }
 
 
 function todayString(){
 
-  const d = new Date();
+const d = new Date();
 
-  const y = d.getFullYear();
+const y = d.getFullYear();
 
-  const m = String(d.getMonth()+1).padStart(2,"0");
+const m =
+String(d.getMonth()+1).padStart(2,"0");
 
-  const day = String(d.getDate()).padStart(2,"0");
+const day =
+String(d.getDate()).padStart(2,"0");
 
-  return `${y}-${m}-${day}`;
+return `${y}-${m}-${day}`;
 
 }
 
 
 function formatDate(date){
 
-  const d = new Date(date + "T00:00:00");
+const d =
+new Date(date+"T00:00:00");
 
-  return d.toLocaleDateString(
-    "ru-RU",
-    {
-      day:"numeric",
-      month:"long"
-    }
-  );
+return d.toLocaleDateString(
+"ru-RU",
+{
+day:"numeric",
+month:"long"
+}
+);
 
 }
 
 
 function updateDates(){
 
-  const now = new Date();
+const now = new Date();
 
-  document.getElementById("headerDate").textContent =
-    now.toLocaleDateString(
-      "ru-RU",
-      {
-        weekday:"long",
-        day:"numeric",
-        month:"long"
-      }
-    );
+document.getElementById("headerDate")
+.textContent =
+now.toLocaleDateString(
+"ru-RU",
+{
+weekday:"long",
+day:"numeric",
+month:"long"
+}
+);
 
 }
 
 
-function showPage(pageId, button){
+function showPage(pageId,button){
 
-  document.querySelectorAll(".page").forEach(
-    page => page.classList.remove("active")
-  );
+document
+.querySelectorAll(".page")
+.forEach(
+page =>
+page.classList.remove("active")
+);
 
-  document.getElementById(pageId).classList.add("active");
+document
+.getElementById(pageId)
+.classList.add("active");
 
-  document.querySelectorAll(".nav-button").forEach(
-    b => b.classList.remove("active")
-  );
+document
+.querySelectorAll(".nav-button")
+.forEach(
+b =>
+b.classList.remove("active")
+);
 
-  if(button){
-    button.classList.add("active");
-  }
+if(button){
+button.classList.add("active");
+}
 
-  render();
+render();
 
 }
 
 
 function openModal(id=null){
 
-  editingId = id;
+editingId=id;
 
-  document.getElementById("modalBg").classList.add("show");
+document
+.getElementById("modalBg")
+.classList.add("show");
 
-  if(id){
+if(id){
 
-    const task = tasks.find(t => t.id === id);
+const task =
+tasks.find(t=>t.id===id);
 
-    if(!task) return;
+if(!task)return;
 
-    document.getElementById("modalTitle").textContent =
-      "Изменить задачу";
+document.getElementById("modalTitle")
+.textContent="Изменить задачу";
 
-    document.getElementById("taskText").value =
-      task.text;
+document.getElementById("taskText")
+.value=task.text;
 
-    document.getElementById("taskDate").value =
-      task.date;
+document.getElementById("taskDate")
+.value=task.date;
 
-    document.getElementById("taskTime").value =
-      task.time || "";
+document.getElementById("taskTime")
+.value=task.time||"";
 
-    document.getElementById("taskRecurring").checked =
-      task.recurring || false;
+document.getElementById("taskRecurring")
+.checked=task.recurring||false;
 
-    selectPriority(task.priority);
+selectPriority(task.priority);
 
-  }else{
+}else{
 
-    document.getElementById("modalTitle").textContent =
-      "Новая задача";
+document.getElementById("modalTitle")
+.textContent="Новая задача";
 
-    document.getElementById("taskText").value = "";
+document.getElementById("taskText")
+.value="";
 
-    document.getElementById("taskDate").value =
-      todayString();
+document.getElementById("taskDate")
+.value=todayString();
 
-    document.getElementById("taskTime").value = "";
+document.getElementById("taskTime")
+.value="";
 
-    document.getElementById("taskRecurring").checked =
-      false;
+document.getElementById("taskRecurring")
+.checked=false;
 
-    selectPriority("important");
+selectPriority("important");
 
-  }
+}
 
 }
 
 
 function closeModal(){
 
-  document.getElementById("modalBg").classList.remove("show");
+document
+.getElementById("modalBg")
+.classList.remove("show");
 
-  editingId = null;
+editingId=null;
 
 }
 
 
 function selectPriority(priority){
 
-  selectedPriority = priority;
+selectedPriority=priority;
 
-  document.querySelectorAll(".priority-button").forEach(
-    b => b.classList.remove("selected")
-  );
+document
+.querySelectorAll(".priority-button")
+.forEach(
+b=>b.classList.remove("selected")
+);
 
-  if(priority === "important"){
-    document.getElementById("priorityImportant")
-      .classList.add("selected");
-  }
+if(priority==="important")
+document
+.getElementById("priorityImportant")
+.classList.add("selected");
 
-  if(priority === "secondary"){
-    document.getElementById("prioritySecondary")
-      .classList.add("selected");
-  }
+if(priority==="secondary")
+document
+.getElementById("prioritySecondary")
+.classList.add("selected");
 
-  if(priority === "note"){
-    document.getElementById("priorityNote")
-      .classList.add("selected");
-  }
+if(priority==="note")
+document
+.getElementById("priorityNote")
+.classList.add("selected");
 
 }
 
 
 function saveTask(){
 
-  const text =
-    document.getElementById("taskText").value.trim();
+const text =
+document
+.getElementById("taskText")
+.value.trim();
 
-  const date =
-    document.getElementById("taskDate").value;
+const date =
+document
+.getElementById("taskDate")
+.value;
 
-  const time =
-    document.getElementById("taskTime").value;
+const time =
+document
+.getElementById("taskTime")
+.value;
 
-  const recurring =
-    document.getElementById("taskRecurring").checked;
+const recurring =
+document
+.getElementById("taskRecurring")
+.checked;
 
-  if(!text){
+if(!text){
 
-    alert("Введите название задачи");
+alert("Введите название задачи");
 
-    return;
+return;
 
-  }
+}
 
-  if(!date){
+if(!date){
 
-    alert("Выберите дату");
+alert("Выберите дату");
 
-    return;
+return;
 
-  }
+}
 
-  if(editingId){
+if(editingId){
 
-    const task =
-      tasks.find(t => t.id === editingId);
+const task =
+tasks.find(t=>t.id===editingId);
 
-    if(task){
+if(task){
 
-      task.text = text;
+task.text=text;
+task.date=date;
+task.time=time;
+task.priority=selectedPriority;
+task.recurring=recurring;
 
-      task.date = date;
+}
 
-      task.time = time;
+}else{
 
-      task.priority = selectedPriority;
+tasks.push({
 
-      task.recurring = recurring;
+id:Date.now(),
 
-    }
+text:text,
 
-  }else{
+date:date,
 
-    tasks.push({
+time:time,
 
-      id:Date.now(),
+priority:selectedPriority,
 
-      text:text,
+recurring:recurring,
 
-      date:date,
+completed:false,
 
-      time:time,
+created:new Date().toISOString()
 
-      priority:selectedPriority,
+});
 
-      recurring:recurring,
+}
 
-      completed:false,
+saveToStorage();
 
-      created:new Date().toISOString()
+closeModal();
 
-    });
+render();
 
-  }
-
-  saveToStorage();
-
-  closeModal();
-
-  render();
-
-  showToast(
-    editingId
-      ? "Задача изменена"
-      : "Задача создана"
-  );
+showToast("Задача сохранена ✓");
 
 }
 
 
 function completeTask(id){
 
-  const task =
-    tasks.find(t => t.id === id);
+const task =
+tasks.find(t=>t.id===id);
 
-  if(!task) return;
+if(!task)return;
 
-  task.completed = true;
+task.completed=true;
 
-  task.completedAt =
-    new Date().toISOString();
+task.completedAt =
+new Date().toISOString();
 
-  saveToStorage();
+saveToStorage();
 
-  render();
+render();
 
-  showToast("Задача выполнена ✓");
+showToast("Задача выполнена ✓");
 
 }
 
 
 function deleteTask(id){
 
-  tasks =
-    tasks.filter(t => t.id !== id);
+tasks =
+tasks.filter(t=>t.id!==id);
 
-  saveToStorage();
+saveToStorage();
 
-  render();
+render();
 
-  showToast("Задача удалена");
+showToast("Задача удалена");
 
 }
 
 
 function editTask(id){
 
-  openModal(id);
+openModal(id);
+
+}
+
+
+function escapeHTML(text){
+
+return text
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
 
 }
 
 
 function taskHTML(task){
 
-  let priorityClass =
-    "priority-" + task.priority;
+const priorityClass =
+"priority-"+task.priority;
 
-  let textClass =
-    task.priority + "-text";
+const textClass =
+task.priority+"-text";
 
-  let time =
-    task.time
-      ? " · " + task.time
-      : "";
+const time =
+task.time
+? " · "+task.time
+: "";
 
-  let recurring =
-    task.recurring
-      ? " · 🔁 постоянно"
-      : "";
+const recurring =
+task.recurring
+? " · 🔁 постоянно"
+: "";
 
-  return `
+return `
 
-<div class="task ${priorityClass} ${task.completed ? "completed" : ""}">
+<div class="task ${priorityClass} ${task.completed?"completed":""}">
 
-  ${
-    task.completed
-      ? `<div class="task-circle"
-             style="background:#5FAF8A;border-color:#5FAF8A;color:white;text-align:center;">
-             ✓
-         </div>`
-      : `<div class="task-circle"
-             onclick="completeTask(${task.id})">
-         </div>`
-  }
+${
+task.completed
 
-  <div class="task-content">
+?
 
-    <div class="task-title ${textClass}">
-      ${escapeHTML(task.text)}
-    </div>
+`<div
+class="task-circle"
+style="background:#5FAF8A;border-color:#5FAF8A;color:white;text-align:center">
+✓
+</div>`
 
-    <div class="task-meta">
-      ${formatDate(task.date)}${time}${recurring}
-    </div>
+:
 
-  </div>
+`<div
+class="task-circle"
+onclick="completeTask(${task.id})">
+</div>`
 
-  <div class="task-actions">
+}
 
-    ${
-      !task.completed
-      ? `<button onclick="editTask(${task.id})">✏️</button>`
-      : ""
-    }
+<div class="task-content">
 
-    <button onclick="deleteTask(${task.id})">🗑️</button>
+<div class="task-title ${textClass}">
+${escapeHTML(task.text)}
+</div>
 
-  </div>
+<div class="task-meta">
+${formatDate(task.date)}${time}${recurring}
+</div>
+
+</div>
+
+<div class="task-actions">
+
+${
+!task.completed
+?
+`<button onclick="editTask(${task.id})">✏️</button>`
+:
+""
+}
+
+<button onclick="deleteTask(${task.id})">
+🗑️
+</button>
+
+</div>
 
 </div>
 
@@ -1145,503 +1288,526 @@ function taskHTML(task){
 }
 
 
-function escapeHTML(text){
+function setCategory(category,button){
 
-  return text
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+currentCategory=category;
 
-}
+document
+.querySelectorAll(".category-tabs button")
+.forEach(
+b=>b.classList.remove("active")
+);
 
+button.classList.add("active");
 
-function setCategory(category, button){
-
-  currentCategory = category;
-
-  document.querySelectorAll(".category-tabs button")
-    .forEach(b => b.classList.remove("active"));
-
-  button.classList.add("active");
-
-  renderToday();
+renderToday();
 
 }
 
 
 function sortTasks(list){
 
-  return list.sort((a,b)=>{
+return list.sort((a,b)=>{
 
-    if(a.time && b.time){
+if(a.time && b.time)
+return a.time.localeCompare(b.time);
 
-      return a.time.localeCompare(b.time);
+if(a.time)return -1;
 
-    }
+if(b.time)return 1;
 
-    if(a.time) return -1;
+return 0;
 
-    if(b.time) return 1;
-
-    return 0;
-
-  });
+});
 
 }
 
 
 function renderToday(){
 
-  const today =
-    todayString();
+const today=todayString();
 
-  let list =
-    tasks.filter(
-      t =>
-        t.date === today &&
-        !t.completed
-    );
+let list =
+tasks.filter(
+t =>
+t.date===today &&
+!t.completed
+);
 
-  if(currentCategory !== "all"){
+if(currentCategory!=="all"){
 
-    list =
-      list.filter(
-        t => t.priority === currentCategory
-      );
+list =
+list.filter(
+t=>t.priority===currentCategory
+);
 
-  }
+}
 
-  list =
-    sortTasks(list);
+list=sortTasks(list);
 
-  const container =
-    document.getElementById("todayTasks");
+const container =
+document.getElementById("todayTasks");
 
-  if(!list.length){
+if(!list.length){
 
-    container.innerHTML =
-      `<div class="empty">
-        Сегодня задач нет 🎉
-       </div>`;
+container.innerHTML=
+`<div class="empty">
+Сегодня задач нет 🎉
+</div>`;
 
-    return;
+return;
 
-  }
+}
 
-  container.innerHTML =
-    list.map(taskHTML).join("");
+container.innerHTML =
+list.map(taskHTML).join("");
 
 }
 
 
 function renderCalendar(){
 
-  const year =
-    currentMonth.getFullYear();
+const year =
+currentMonth.getFullYear();
 
-  const month =
-    currentMonth.getMonth();
+const month =
+currentMonth.getMonth();
 
-  const title =
-    currentMonth.toLocaleDateString(
-      "ru-RU",
-      {
-        month:"long",
-        year:"numeric"
-      }
-    );
+const title =
+currentMonth.toLocaleDateString(
+"ru-RU",
+{
+month:"long",
+year:"numeric"
+}
+);
 
-  document.getElementById("monthTitle")
-    .textContent =
-      title.charAt(0).toUpperCase()
-      + title.slice(1);
+document.getElementById("monthTitle")
+.textContent =
+title.charAt(0).toUpperCase()
++title.slice(1);
 
-  const grid =
-    document.getElementById("calendarGrid");
+const grid =
+document.getElementById("calendarGrid");
 
-  grid.innerHTML = "";
+grid.innerHTML="";
 
-  const first =
-    new Date(year,month,1);
+const first =
+new Date(year,month,1);
 
-  let startDay =
-    first.getDay();
+let startDay=first.getDay();
 
-  startDay =
-    startDay === 0 ? 7 : startDay;
+startDay=
+startDay===0?7:startDay;
 
-  const days =
-    new Date(year,month+1,0).getDate();
+const days =
+new Date(year,month+1,0).getDate();
 
-  for(let i=1;i<startDay;i++){
+for(let i=1;i<startDay;i++){
 
-    grid.innerHTML +=
-      `<div></div>`;
+grid.innerHTML+=
+"<div></div>";
 
-  }
+}
 
-  for(let day=1;day<=days;day++){
+for(let day=1;day<=days;day++){
 
-    const date =
-      `${year}-${String(month+1).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
+const date=
+`${year}-${String(month+1).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
 
-    const dayTasks =
-      tasks.filter(
-        t => t.date === date
-      );
+const dayTasks =
+tasks.filter(
+t=>t.date===date
+);
 
-    const isToday =
-      date === todayString();
+const isToday =
+date===todayString();
 
-    let taskHTMLs =
-      dayTasks
-        .slice(0,2)
-        .map(
-          t =>
-            `<div class="day-task ${t.priority}-text">
-              ${escapeHTML(t.text)}
-            </div>`
-        )
-        .join("");
+const taskPreview =
+dayTasks
+.slice(0,2)
+.map(
+t=>
+`<div class="day-task ${t.priority}-text">
+${escapeHTML(t.text)}
+</div>`
+)
+.join("");
 
-    grid.innerHTML += `
+grid.innerHTML+=`
 
-      <div class="day ${isToday ? "today" : ""}"
-           onclick="showDayTasks('${date}')">
+<div
+class="day ${isToday?"today":""}"
+onclick="showDayTasks('${date}')">
 
-        <div class="day-number">
-          ${day}
-        </div>
+<div class="day-number">
+${day}
+</div>
 
-        ${taskHTMLs}
+${taskPreview}
 
-      </div>
+</div>
 
-    `;
+`;
 
-  }
+}
 
-  renderMonthTasks();
+renderMonthTasks();
 
 }
 
 
 function renderMonthTasks(){
 
-  const year =
-    currentMonth.getFullYear();
+const year =
+currentMonth.getFullYear();
 
-  const month =
-    currentMonth.getMonth();
+const month =
+currentMonth.getMonth();
 
-  const prefix =
-    `${year}-${String(month+1).padStart(2,"0")}`;
+const prefix=
+`${year}-${String(month+1).padStart(2,"0")}`;
 
-  const list =
-    tasks.filter(
-      t => t.date.startsWith(prefix)
-    );
+const list =
+tasks.filter(
+t=>t.date.startsWith(prefix)
+);
 
-  const container =
-    document.getElementById("monthTasks");
+const container =
+document.getElementById("monthTasks");
 
-  if(!list.length){
+if(!list.length){
 
-    container.innerHTML =
-      `<div class="empty">
-        В этом месяце задач нет
-       </div>`;
+container.innerHTML=
+`<div class="empty">
+В этом месяце задач нет
+</div>`;
 
-    return;
+return;
 
-  }
+}
 
-  container.innerHTML =
-    sortTasks(list).map(taskHTML).join("");
+container.innerHTML =
+sortTasks(list)
+.map(taskHTML)
+.join("");
 
 }
 
 
 function showDayTasks(date){
 
-  const list =
-    tasks.filter(
-      t => t.date === date
-    );
+const list =
+tasks.filter(
+t=>t.date===date
+);
 
-  if(!list.length){
+if(!list.length){
 
-    showToast("На этот день задач нет");
+showToast("На этот день задач нет");
 
-    return;
+return;
 
-  }
+}
 
-  document.getElementById("monthTasks")
-    .innerHTML =
-      `<div class="section-title">
-        ${formatDate(date)}
-       </div>`
-      + list.map(taskHTML).join("");
+document
+.getElementById("monthTasks")
+.innerHTML=
+`<div class="section-title">
+${formatDate(date)}
+</div>`
++
+list.map(taskHTML).join("");
 
 }
 
 
 function changeMonth(offset){
 
-  currentMonth.setMonth(
-    currentMonth.getMonth() + offset
-  );
+currentMonth.setMonth(
+currentMonth.getMonth()+offset
+);
 
-  renderCalendar();
+renderCalendar();
 
 }
 
 
 function renderCompleted(){
 
-  const list =
-    tasks.filter(
-      t => t.completed
-    );
+const list =
+tasks.filter(
+t=>t.completed
+);
 
-  const container =
-    document.getElementById("completedTasks");
+const container =
+document.getElementById("completedTasks");
 
-  if(!list.length){
+if(!list.length){
 
-    container.innerHTML =
-      `<div class="empty">
-        Выполненных задач пока нет
-       </div>`;
+container.innerHTML=
+`<div class="empty">
+Выполненных задач пока нет
+</div>`;
 
-    return;
+return;
 
-  }
+}
 
-  container.innerHTML =
-    list
-      .sort(
-        (a,b) =>
-          (b.completedAt || "")
-          .localeCompare(a.completedAt || "")
-      )
-      .map(taskHTML)
-      .join("");
+container.innerHTML =
+list
+.sort(
+(a,b)=>
+(b.completedAt||"")
+.localeCompare(b.completedAt||"")
+)
+.map(taskHTML)
+.join("");
 
 }
 
 
 function renderProfile(){
 
-  const total =
-    tasks.length;
+document.getElementById("totalCount")
+.textContent=tasks.length;
 
-  const done =
-    tasks.filter(
-      t => t.completed
-    ).length;
+document.getElementById("doneCount")
+.textContent=
+tasks.filter(t=>t.completed).length;
 
-  const important =
-    tasks.filter(
-      t =>
-        t.priority === "important"
-        && !t.completed
-    ).length;
+document.getElementById("importantCount")
+.textContent=
+tasks.filter(
+t=>
+t.priority==="important"
+&&!t.completed
+).length;
 
-  document.getElementById("totalCount")
-    .textContent = total;
-
-  document.getElementById("doneCount")
-    .textContent = done;
-
-  document.getElementById("importantCount")
-    .textContent = important;
-
-  updateNotificationStatus();
+updateNotificationStatus();
 
 }
 
 
 function requestNotifications(){
 
-  if(!("Notification" in window)){
+if(!("Notification" in window)){
 
-    alert(
-      "Этот браузер не поддерживает уведомления."
-    );
+alert(
+"Этот браузер не поддерживает уведомления."
+);
 
-    return;
+return;
 
-  }
+}
 
-  Notification.requestPermission()
-    .then(permission => {
+Notification.requestPermission()
+.then(permission=>{
 
-      updateNotificationStatus();
+updateNotificationStatus();
 
-      if(permission === "granted"){
+if(permission==="granted"){
 
-        new Notification(
-          "Система планирования",
-          {
-            body:"Уведомления работают!"
-          }
-        );
+showToast(
+"Уведомления разрешены ✓"
+);
 
-        showToast(
-          "Уведомления разрешены ✓"
-        );
+testNotification();
 
-      }
+}
 
-      else if(permission === "denied"){
+else if(permission==="denied"){
 
-        alert(
-          "Уведомления запрещены в настройках браузера."
-        );
+alert(
+"Уведомления запрещены в настройках браузера."
+);
 
-      }
+}
 
-    })
-    .catch(() => {
+})
+.catch(()=>{
 
-      alert(
-        "Не удалось запросить разрешение на уведомления."
-      );
+alert(
+"Не удалось запросить разрешение."
+);
 
-    });
+});
+
+}
+
+
+function testNotification(){
+
+if(!("Notification" in window)){
+
+alert(
+"Этот браузер не поддерживает уведомления."
+);
+
+return;
+
+}
+
+if(Notification.permission!=="granted"){
+
+alert(
+"Сначала нажмите «Разрешить уведомления»."
+);
+
+return;
+
+}
+
+try{
+
+new Notification(
+"Система планирования",
+{
+body:"🧪 Тестовое уведомление работает!",
+icon:"./icon-192.png"
+}
+);
+
+showToast(
+"Уведомление отправлено ✓"
+);
+
+}catch(error){
+
+console.error(error);
+
+alert(
+"Браузер не смог показать уведомление."
+);
+
+}
 
 }
 
 
 function updateNotificationStatus(){
 
-  const element =
-    document.getElementById(
-      "notificationStatus"
-    );
+const element =
+document.getElementById(
+"notificationStatus"
+);
 
-  if(!element) return;
+if(!element)return;
 
-  if(!("Notification" in window)){
+if(!("Notification" in window)){
 
-    element.textContent =
-      "❌ Браузер не поддерживает уведомления";
+element.textContent=
+"❌ Браузер не поддерживает уведомления";
 
-    return;
+return;
 
-  }
+}
 
-  if(Notification.permission === "granted"){
+if(Notification.permission==="granted"){
 
-    element.textContent =
-      "✅ Уведомления разрешены";
+element.textContent=
+"✅ Уведомления разрешены";
 
-  }
+}
 
-  else if(Notification.permission === "denied"){
+else if(Notification.permission==="denied"){
 
-    element.textContent =
-      "❌ Уведомления запрещены";
+element.textContent=
+"❌ Уведомления запрещены";
 
-  }
+}
 
-  else{
+else{
 
-    element.textContent =
-      "Уведомления пока не разрешены";
+element.textContent=
+"Уведомления пока не разрешены";
 
-  }
+}
 
 }
 
 
 function showToast(message){
 
-  const toast =
-    document.getElementById("toast");
+const toast =
+document.getElementById("toast");
 
-  toast.textContent =
-    message;
+toast.textContent=message;
 
-  toast.classList.add("show");
+toast.classList.add("show");
 
-  setTimeout(
-    () => toast.classList.remove("show"),
-    2200
-  );
+setTimeout(
+()=>toast.classList.remove("show"),
+2200
+);
 
 }
 
 
 function render(){
 
-  updateDates();
+updateDates();
 
-  renderToday();
+renderToday();
 
-  renderCalendar();
+renderCalendar();
 
-  renderCompleted();
+renderCompleted();
 
-  renderProfile();
+renderProfile();
 
 }
 
 
-if(tasks.length === 0){
+if(tasks.length===0){
 
-  const today =
-    todayString();
+const today=todayString();
 
-  tasks = [
+tasks=[
 
-    {
-      id:1,
-      text:"Поздравить Бабу Зину",
-      date:today,
-      time:"16:00",
-      priority:"important",
-      recurring:false,
-      completed:false
-    },
+{
+id:1,
+text:"Поздравить Бабу Зину",
+date:today,
+time:"16:00",
+priority:"important",
+recurring:false,
+completed:false
+},
 
-    {
-      id:2,
-      text:"Забрать ноутбук с ремонта",
-      date:today,
-      time:"17:00",
-      priority:"important",
-      recurring:false,
-      completed:false
-    },
+{
+id:2,
+text:"Забрать ноутбук с ремонта",
+date:today,
+time:"17:00",
+priority:"important",
+recurring:false,
+completed:false
+},
 
-    {
-      id:3,
-      text:"Помыть пол до прихода жены",
-      date:today,
-      time:"20:00",
-      priority:"secondary",
-      recurring:false,
-      completed:false
-    },
+{
+id:3,
+text:"Помыть пол до прихода жены",
+date:today,
+time:"20:00",
+priority:"secondary",
+recurring:false,
+completed:false
+},
 
-    {
-      id:4,
-      text:"#дома отключают свет до 16",
-      date:today,
-      time:"",
-      priority:"note",
-      recurring:false,
-      completed:false
-    }
+{
+id:4,
+text:"#дома отключают свет до 16",
+date:today,
+time:"",
+priority:"note",
+recurring:false,
+completed:false
+}
 
-  ];
+];
 
-  saveToStorage();
+saveToStorage();
 
 }
 
