@@ -13,7 +13,7 @@ jobs:
 
       - name: Распаковать Android проект
         run: |
-          unzip -o sistema-planirovaniya-android-widget-fixed.zip -d android-project
+          unzip -o sistema-planirovaniya-android-widget-final.zip -d android-project
           rm -rf android-project/.github
 
       - name: Настроить Java
