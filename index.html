@@ -2,60 +2,44 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#5FAF8A">
-<title>Система планирования</title>
 <link rel="manifest" href="./manifest.json">
+
+<title>Система планирования</title>
+
 <style>
 * {
   box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  font-family: Arial, sans-serif;
   background: #f4f7f5;
   color: #26352d;
 }
 
-button, input, textarea {
-  font: inherit;
-}
-
-button {
-  cursor: pointer;
-}
-
 .app {
-  width: 100%;
   max-width: 480px;
   min-height: 100vh;
   margin: auto;
-  background: #fff;
-  position: relative;
-  padding-bottom: 82px;
+  background: white;
+  padding-bottom: 85px;
 }
 
-/* ---------- HEADER ---------- */
-
 .header {
-  padding: 18px 18px 12px;
+  padding: 16px;
   display: flex;
   align-items: center;
   gap: 10px;
   border-bottom: 1px solid #edf1ee;
-  position: sticky;
-  top: 0;
-  background: rgba(255,255,255,.96);
-  backdrop-filter: blur(12px);
-  z-index: 10;
 }
 
-.profile-button {
+.avatar {
   width: 42px;
   height: 42px;
-  border: none;
+  border: 0;
   border-radius: 50%;
   background: #e3f0e9;
   font-size: 20px;
@@ -65,36 +49,22 @@ button {
   flex: 1;
 }
 
-.header-title {
+.title {
+  font-weight: bold;
   font-size: 18px;
-  font-weight: 700;
 }
 
-.header-date {
+.date {
+  color: #89958e;
   font-size: 12px;
-  color: #819088;
-  margin-top: 2px;
+  margin-top: 3px;
 }
 
-.header-actions {
-  display: flex;
-  gap: 6px;
-}
-
-.icon-button {
-  border: none;
+.icon {
+  border: 0;
   background: transparent;
   font-size: 20px;
-  width: 38px;
-  height: 38px;
-  border-radius: 12px;
 }
-
-.icon-button:active {
-  background: #eef4f0;
-}
-
-/* ---------- PAGES ---------- */
 
 .page {
   display: none;
@@ -105,95 +75,77 @@ button {
   display: block;
 }
 
-/* ---------- HOME ---------- */
-
-.welcome {
-  margin-bottom: 18px;
+h2 {
+  margin-top: 0;
 }
 
-.welcome h2 {
-  margin: 0;
-  font-size: 23px;
-}
-
-.welcome p {
-  margin: 5px 0 0;
-  color: #87938d;
+.subtitle {
+  color: #89958e;
   font-size: 14px;
 }
 
-.today-card {
+.today {
   background: #f0f7f3;
-  border-radius: 20px;
   padding: 16px;
-  margin-bottom: 18px;
+  border-radius: 18px;
+  margin: 18px 0;
 }
 
-.today-card-title {
-  font-size: 13px;
+.today-title {
   color: #718078;
-  margin-bottom: 12px;
+  font-size: 12px;
 }
 
 .today-date {
   font-size: 20px;
-  font-weight: 700;
-  margin-bottom: 14px;
+  font-weight: bold;
+  margin: 8px 0 14px;
 }
 
-.task-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.task-card {
+.task {
   display: flex;
   align-items: flex-start;
-  gap: 11px;
+  gap: 10px;
   padding: 13px;
+  margin-bottom: 9px;
   border: 1px solid #edf0ee;
-  border-radius: 15px;
-  background: #fff;
-  box-shadow: 0 2px 8px rgba(50,70,60,.04);
+  border-radius: 14px;
+  background: white;
 }
 
-.task-check {
+.check {
   width: 23px;
   height: 23px;
-  border: 2px solid #b9c8c0;
+  flex-shrink: 0;
   border-radius: 50%;
-  flex: 0 0 23px;
+  border: 2px solid #b9c8c0;
   background: white;
-  margin-top: 1px;
 }
 
-.task-check.important {
+.check.important {
   border-color: #e95f63;
 }
 
-.task-check.secondary {
+.check.secondary {
   border-color: #5FAF8A;
 }
 
-.task-check.note {
+.check.note {
   border-color: #8aa8bd;
 }
 
-.task-info {
+.task-content {
   flex: 1;
-  min-width: 0;
 }
 
 .task-text {
   font-size: 15px;
   line-height: 1.35;
-  word-break: break-word;
 }
 
 .task-text.important {
   color: #d94e53;
-  font-weight: 700;
+  font-weight: bold;
   text-transform: uppercase;
 }
 
@@ -205,66 +157,57 @@ button {
   color: #6e7e87;
 }
 
-.task-meta {
+.meta {
   margin-top: 5px;
+  font-size: 11px;
+  color: #89958e;
+}
+
+.actions button {
+  border: 0;
+  background: transparent;
+  padding: 4px;
+}
+
+.tabs {
   display: flex;
   gap: 8px;
-  flex-wrap: wrap;
-  font-size: 11px;
-  color: #87938d;
+  overflow-x: auto;
+  margin: 15px 0;
 }
 
-.task-actions {
+.tab {
+  border: 0;
+  border-radius: 20px;
+  padding: 9px 15px;
+  background: #f1f4f2;
+  color: #6e7b74;
+}
+
+.tab.active {
+  background: #5FAF8A;
+  color: white;
+}
+
+.calendar-header {
   display: flex;
-  gap: 2px;
-}
-
-.small-action {
-  border: none;
-  background: transparent;
-  font-size: 16px;
-  padding: 4px;
-  opacity: .65;
-}
-
-.empty {
-  text-align: center;
-  padding: 30px 10px;
-  color: #9aa59f;
-}
-
-/* ---------- CALENDAR ---------- */
-
-.calendar-top {
-  display: flex;
-  align-items: center;
   justify-content: space-between;
-  margin-bottom: 18px;
+  align-items: center;
+  margin-bottom: 15px;
 }
 
-.month-title {
+.month {
   font-size: 20px;
-  font-weight: 700;
+  font-weight: bold;
 }
 
-.month-buttons {
-  display: flex;
-  gap: 5px;
-}
-
-.month-buttons button {
-  border: none;
+.month button {
+  border: 0;
   background: #eef5f1;
-  width: 36px;
-  height: 36px;
-  border-radius: 11px;
-  font-size: 18px;
-}
-
-.calendar {
-  border: 1px solid #edf0ee;
-  border-radius: 18px;
-  overflow: hidden;
+  width: 35px;
+  height: 35px;
+  border-radius: 10px;
+  font-size: 20px;
 }
 
 .weekdays,
@@ -275,160 +218,57 @@ button {
 
 .weekday {
   text-align: center;
-  padding: 10px 2px;
+  padding: 9px 0;
   font-size: 11px;
   color: #89958e;
-  background: #fafcfb;
 }
 
 .day {
-  min-height: 67px;
-  padding: 6px 4px;
-  border-top: 1px solid #f0f2f1;
-  border-right: 1px solid #f0f2f1;
-  position: relative;
-  background: white;
+  min-height: 65px;
+  padding: 5px;
+  border: 1px solid #f0f2f1;
+  font-size: 11px;
 }
 
-.day:nth-child(7n) {
-  border-right: none;
+.day.today-day {
+  background: #eaf5ef;
 }
 
 .day-number {
-  font-size: 12px;
-  color: #68756e;
+  font-weight: bold;
 }
 
-.day.today {
-  background: rgba(95,175,138,.13);
-}
-
-.day.today .day-number {
-  background: #5FAF8A;
-  color: white;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.day.other-month {
-  background: #fafbfa;
-}
-
-.day.other-month .day-number {
-  color: #c4ccc7;
-}
-
-.day-task {
+.dot {
+  margin-top: 4px;
   font-size: 8px;
-  line-height: 1.15;
-  margin-top: 3px;
-  padding-left: 3px;
-  border-left: 3px solid #5FAF8A;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-.day-task.important {
-  border-color: #e95f63;
+.dot.important {
+  color: #d94e53;
 }
 
-.day-task.note {
-  border-color: #8aa8bd;
+.dot.secondary {
+  color: #408060;
 }
 
-/* ---------- CATEGORIES ---------- */
-
-.section-title {
-  font-size: 19px;
-  font-weight: 700;
-  margin-bottom: 15px;
+.dot.note {
+  color: #637f91;
 }
 
-.category-tabs {
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  padding-bottom: 6px;
-  margin-bottom: 14px;
-}
-
-.category-tabs::-webkit-scrollbar {
-  display: none;
-}
-
-.category-tab {
-  border: none;
-  white-space: nowrap;
-  padding: 9px 15px;
-  border-radius: 20px;
-  background: #f1f4f2;
-  color: #6e7b74;
-}
-
-.category-tab.active {
-  background: #5FAF8A;
-  color: white;
-}
-
-.category-tab.important.active {
-  background: #e95f63;
-}
-
-.category-tab.note.active {
-  background: #8aa8bd;
-}
-
-/* ---------- COMPLETED ---------- */
-
-.completed-card {
-  opacity: .72;
-}
-
-.completed-card .task-text {
-  text-decoration: line-through;
-}
-
-/* ---------- PROFILE ---------- */
-
-.profile-head {
+.empty {
   text-align: center;
-  padding: 15px 0 25px;
-}
-
-.profile-avatar {
-  width: 76px;
-  height: 76px;
-  border-radius: 50%;
-  background: #e3f0e9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 38px;
-  margin: auto;
-}
-
-.profile-name {
-  font-size: 20px;
-  font-weight: 700;
-  margin-top: 12px;
-}
-
-.profile-sub {
-  color: #8b9791;
-  font-size: 13px;
-  margin-top: 4px;
+  padding: 25px 10px;
+  color: #9aa59f;
 }
 
 .stats {
   display: grid;
-  grid-template-columns: repeat(3,1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 8px;
-  margin-bottom: 20px;
+  margin: 20px 0;
 }
 
 .stat {
@@ -440,100 +280,104 @@ button {
 
 .stat-number {
   font-size: 22px;
-  font-weight: 700;
+  font-weight: bold;
 }
 
 .stat-label {
+  color: #89958e;
   font-size: 11px;
-  color: #89958f;
-  margin-top: 3px;
 }
 
-.profile-menu {
+.profile-avatar {
+  width: 75px;
+  height: 75px;
+  margin: 10px auto;
+  border-radius: 50%;
+  background: #e3f0e9;
   display: flex;
-  flex-direction: column;
-  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  font-size: 35px;
+}
+
+.profile-name {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.profile-sub {
+  text-align: center;
+  color: #89958e;
+  font-size: 13px;
 }
 
 .profile-menu button {
-  border: none;
+  width: 100%;
+  border: 0;
   background: #f7f9f8;
   border-radius: 14px;
   padding: 14px;
+  margin-bottom: 8px;
   text-align: left;
-  color: #44534b;
 }
 
-/* ---------- ADD BUTTON ---------- */
-
-.add-main-button {
+.add-button {
   position: fixed;
-  bottom: 78px;
+  bottom: 75px;
   left: 50%;
   transform: translateX(-50%);
-  max-width: 430px;
   width: calc(100% - 36px);
+  max-width: 430px;
   height: 52px;
-  border: none;
+  border: 0;
   border-radius: 17px;
   background: #5FAF8A;
   color: white;
-  font-weight: 700;
-  font-size: 15px;
-  box-shadow: 0 8px 20px rgba(95,175,138,.25);
+  font-weight: bold;
   z-index: 20;
 }
 
-/* ---------- BOTTOM NAV ---------- */
-
-.bottom-nav {
+.bottom {
   position: fixed;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
   max-width: 480px;
-  height: 68px;
-  background: rgba(255,255,255,.97);
-  backdrop-filter: blur(12px);
+  height: 67px;
+  background: white;
   border-top: 1px solid #edf0ee;
   display: grid;
-  grid-template-columns: repeat(5,1fr);
+  grid-template-columns: repeat(5, 1fr);
   z-index: 30;
-  padding-bottom: env(safe-area-inset-bottom);
 }
 
-.nav-button {
-  border: none;
+.nav {
+  border: 0;
   background: transparent;
   color: #929c97;
   font-size: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 3px;
 }
 
-.nav-icon {
-  font-size: 21px;
+.nav span {
+  display: block;
+  font-size: 20px;
+  margin-bottom: 3px;
 }
 
-.nav-button.active {
+.nav.active {
   color: #4b9a75;
-  font-weight: 700;
+  font-weight: bold;
 }
-
-/* ---------- MODAL ---------- */
 
 .modal-bg {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(30,45,38,.38);
+  background: rgba(30,45,38,.4);
   z-index: 100;
   align-items: flex-end;
-  justify-content: center;
 }
 
 .modal-bg.show {
@@ -543,122 +387,92 @@ button {
 .modal {
   width: 100%;
   max-width: 480px;
+  margin: auto;
   background: white;
   border-radius: 25px 25px 0 0;
-  padding: 20px 18px calc(22px + env(safe-area-inset-bottom));
-  max-height: 90vh;
-  overflow-y: auto;
-}
-
-.modal-handle {
-  width: 42px;
-  height: 4px;
-  border-radius: 4px;
-  background: #d9dfdb;
-  margin: 0 auto 18px;
+  padding: 20px;
 }
 
 .modal h2 {
-  margin: 0 0 18px;
-  font-size: 21px;
+  margin-bottom: 18px;
 }
 
-.input-label {
+.priority {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 7px;
+  margin-bottom: 14px;
+}
+
+.priority button {
+  border: 2px solid transparent;
+  background: #f2f4f3;
+  padding: 10px 3px;
+  border-radius: 12px;
   font-size: 12px;
-  color: #7e8b84;
-  margin: 12px 0 6px;
+}
+
+.priority button.selected.important {
+  border-color: #e95f63;
+}
+
+.priority button.selected.secondary {
+  border-color: #5FAF8A;
+}
+
+.priority button.selected.note {
+  border-color: #8aa8bd;
 }
 
 textarea,
-input[type="date"],
-input[type="time"] {
+input {
   width: 100%;
   border: 1px solid #dfe6e1;
   border-radius: 13px;
   padding: 12px;
-  outline: none;
   background: #fafcfb;
+  margin-bottom: 10px;
 }
 
 textarea {
-  min-height: 90px;
+  min-height: 85px;
   resize: vertical;
 }
 
-textarea:focus,
-input:focus {
-  border-color: #5FAF8A;
-}
-
-.priority-buttons {
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 7px;
-}
-
-.priority-button {
-  border: 2px solid transparent;
-  border-radius: 12px;
-  padding: 10px 5px;
-  background: #f2f4f3;
-  font-size: 12px;
-}
-
-.priority-button.selected.important {
-  border-color: #e95f63;
-  color: #d94e53;
-  background: #fff1f1;
-}
-
-.priority-button.selected.secondary {
-  border-color: #5FAF8A;
-  color: #3d805f;
-  background: #edf8f2;
-}
-
-.priority-button.selected.note {
-  border-color: #8aa8bd;
-  color: #637f91;
-  background: #f0f5f8;
-}
-
-.datetime-row {
+.date-time {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 8px;
 }
 
-.check-row {
-  margin-top: 14px;
+.permanent {
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap: 8px;
   font-size: 14px;
 }
 
-.check-row input {
+.permanent input {
   width: 18px;
-  height: 18px;
-  accent-color: #5FAF8A;
+  margin: 0;
 }
 
 .modal-buttons {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 9px;
-  margin-top: 20px;
+  gap: 8px;
+  margin-top: 15px;
 }
 
 .modal-buttons button {
-  border: none;
-  border-radius: 13px;
+  border: 0;
   padding: 13px;
-  font-weight: 600;
+  border-radius: 13px;
+  font-weight: bold;
 }
 
 .cancel {
   background: #f0f3f1;
-  color: #66736c;
 }
 
 .save {
@@ -666,69 +480,21 @@ input:focus {
   color: white;
 }
 
-/* ---------- TOAST ---------- */
-
 .toast {
   position: fixed;
   left: 50%;
   bottom: 145px;
-  transform: translateX(-50%) translateY(20px);
+  transform: translateX(-50%);
   background: #26352d;
   color: white;
   padding: 11px 16px;
   border-radius: 13px;
-  font-size: 13px;
-  opacity: 0;
-  pointer-events: none;
-  transition: .25s;
+  display: none;
   z-index: 200;
-  max-width: 90%;
-  text-align: center;
 }
 
 .toast.show {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-
-/* ---------- REMINDER ---------- */
-
-.reminder {
-  background: #fff8e8;
-  border: 1px solid #f2dfad;
-  border-radius: 16px;
-  padding: 13px;
-  margin-bottom: 15px;
-  display: none;
-}
-
-.reminder.show {
   display: block;
-}
-
-.reminder strong {
-  display: block;
-  margin-bottom: 4px;
-}
-
-@media (min-width: 600px) {
-  body {
-    padding: 20px;
-  }
-
-  .app {
-    border-radius: 25px;
-    overflow: hidden;
-    box-shadow: 0 10px 40px rgba(30,50,40,.1);
-  }
-
-  .bottom-nav {
-    border-radius: 0 0 25px 25px;
-  }
-
-  .add-main-button {
-    bottom: 92px;
-  }
 }
 </style>
 </head>
@@ -737,232 +503,266 @@ input:focus {
 
 <div class="app">
 
-  <!-- HEADER -->
-  <header class="header">
-    <button class="profile-button" onclick="showPage('profile')">👤</button>
+<header class="header">
 
-    <div class="header-center">
-      <div class="header-title">Система планирования</div>
-      <div class="header-date" id="headerDate"></div>
-    </div>
+<button class="avatar" onclick="showPage('profile')">
+👤
+</button>
 
-    <div class="header-actions">
-      <button class="icon-button" onclick="showToast('Настройки будут доступны в следующей версии')">⚙️</button>
-      <button class="icon-button" onclick="showPage('completed')">🗂️</button>
-    </div>
-  </header>
+<div class="header-center">
+<div class="title">Система планирования</div>
+<div class="date" id="headerDate"></div>
+</div>
 
+<button class="icon" onclick="showToast('Настройки появятся позже')">⚙️</button>
+<button class="icon" onclick="showPage('completed')">🗂️</button>
 
-  <!-- HOME -->
-  <main id="home" class="page active">
-
-    <div class="welcome">
-      <h2>Мои планы</h2>
-      <p>Запиши. Расставь приоритет. Не забудь. Выполни.</p>
-    </div>
-
-    <div id="reminder" class="reminder"></div>
-
-    <div class="today-card">
-      <div class="today-card-title">СЕГОДНЯ</div>
-      <div class="today-date" id="todayDate"></div>
-      <div id="todayTasks" class="task-list"></div>
-    </div>
-
-    <div class="section-title">Категории</div>
-
-    <div class="category-tabs">
-      <button class="category-tab active important" onclick="setCategory('important', this)">Важные</button>
-      <button class="category-tab secondary" onclick="setCategory('secondary', this)">Побочные</button>
-      <button class="category-tab note" onclick="setCategory('note', this)">Заметки</button>
-    </div>
-
-    <div id="categoryTasks" class="task-list"></div>
-
-  </main>
+</header>
 
 
-  <!-- CALENDAR -->
-  <main id="calendarPage" class="page">
+<!-- ГЛАВНАЯ -->
 
-    <div class="calendar-top">
-      <div class="month-title" id="monthTitle"></div>
+<section id="home" class="page active">
 
-      <div class="month-buttons">
-        <button onclick="changeMonth(-1)">‹</button>
-        <button onclick="changeMonth(1)">›</button>
-      </div>
-    </div>
+<h2>Мои планы</h2>
 
-    <div class="calendar">
-      <div class="weekdays">
-        <div class="weekday">ПН</div>
-        <div class="weekday">ВТ</div>
-        <div class="weekday">СР</div>
-        <div class="weekday">ЧТ</div>
-        <div class="weekday">ПТ</div>
-        <div class="weekday">СБ</div>
-        <div class="weekday">ВС</div>
-      </div>
+<div class="subtitle">
+Запиши. Расставь приоритет. Не забудь. Выполни.
+</div>
 
-      <div id="calendarGrid" class="calendar-grid"></div>
-    </div>
+<div class="today">
 
-    <div style="margin-top:18px">
-      <div class="section-title">Задачи месяца</div>
-      <div id="monthTasks" class="task-list"></div>
-    </div>
+<div class="today-title">СЕГОДНЯ</div>
 
-  </main>
+<div class="today-date" id="todayDate"></div>
 
+<div id="todayTasks"></div>
 
-  <!-- COMPLETED -->
-  <main id="completed" class="page">
+</div>
 
-    <div class="section-title">Выполненные задачи</div>
-    <p style="font-size:13px;color:#89958f;margin-top:-8px;margin-bottom:18px">
-      Здесь сохраняется история выполненных планов.
-    </p>
+<h3>Категории</h3>
 
-    <div id="completedTasks" class="task-list"></div>
+<div class="tabs">
 
-  </main>
+<button class="tab active" onclick="setCategory('important',this)">
+Важные
+</button>
+
+<button class="tab" onclick="setCategory('secondary',this)">
+Побочные
+</button>
+
+<button class="tab" onclick="setCategory('note',this)">
+Заметки
+</button>
+
+</div>
+
+<div id="categoryTasks"></div>
+
+</section>
 
 
-  <!-- PROFILE -->
-  <main id="profile" class="page">
+<!-- КАЛЕНДАРЬ -->
 
-    <div class="profile-head">
-      <div class="profile-avatar">👤</div>
-      <div class="profile-name">Мой профиль</div>
-      <div class="profile-sub">Личная эффективность</div>
-    </div>
+<section id="calendarPage" class="page">
 
-    <div class="stats">
-      <div class="stat">
-        <div class="stat-number" id="totalCount">0</div>
-        <div class="stat-label">Всего задач</div>
-      </div>
+<div class="calendar-header">
 
-      <div class="stat">
-        <div class="stat-number" id="completedCount">0</div>
-        <div class="stat-label">Выполнено</div>
-      </div>
+<div class="month" id="monthTitle"></div>
 
-      <div class="stat">
-        <div class="stat-number" id="importantCount">0</div>
-        <div class="stat-label">Важных</div>
-      </div>
-    </div>
+<div>
+<button onclick="changeMonth(-1)">‹</button>
+<button onclick="changeMonth(1)">›</button>
+</div>
 
-    <div class="profile-menu">
-      <button onclick="showPage('completed')">✅ История выполненных задач</button>
-      <button onclick="showToast('Все данные хранятся на этом устройстве')">💾 Хранение данных</button>
-      <button onclick="clearCompleted()">🗑️ Очистить выполненные</button>
-    </div>
+</div>
 
-  </main>
+<div class="weekdays">
+<div class="weekday">ПН</div>
+<div class="weekday">ВТ</div>
+<div class="weekday">СР</div>
+<div class="weekday">ЧТ</div>
+<div class="weekday">ПТ</div>
+<div class="weekday">СБ</div>
+<div class="weekday">ВС</div>
+</div>
 
+<div id="calendarGrid" class="calendar-grid"></div>
 
-  <!-- ADD BUTTON -->
-  <button class="add-main-button" onclick="openModal()">＋ Добавить задачу</button>
+<h3>Задачи месяца</h3>
+
+<div id="monthTasks"></div>
+
+</section>
 
 
-  <!-- BOTTOM NAV -->
-  <nav class="bottom-nav">
+<!-- ВЫПОЛНЕНО -->
 
-    <button class="nav-button active" onclick="showPage('home')">
-      <span class="nav-icon">⌂</span>
-      Главная
-    </button>
+<section id="completed" class="page">
 
-    <button class="nav-button" onclick="showPage('calendarPage')">
-      <span class="nav-icon">▦</span>
-      Календарь
-    </button>
+<h2>Выполненные задачи</h2>
 
-    <button class="nav-button" onclick="openModal()">
-      <span class="nav-icon">＋</span>
-      Добавить
-    </button>
+<div class="subtitle">
+Здесь хранится история выполненных планов.
+</div>
 
-    <button class="nav-button" onclick="showPage('completed')">
-      <span class="nav-icon">✓</span>
-      Выполнено
-    </button>
+<div id="completedTasks"></div>
 
-    <button class="nav-button" onclick="showPage('profile')">
-      <span class="nav-icon">●</span>
-      Профиль
-    </button>
+</section>
 
-  </nav>
+
+<!-- ПРОФИЛЬ -->
+
+<section id="profile" class="page">
+
+<div class="profile-avatar">👤</div>
+
+<div class="profile-name">
+Мой профиль
+</div>
+
+<div class="profile-sub">
+Личная эффективность
+</div>
+
+<div class="stats">
+
+<div class="stat">
+<div class="stat-number" id="totalCount">0</div>
+<div class="stat-label">Всего</div>
+</div>
+
+<div class="stat">
+<div class="stat-number" id="doneCount">0</div>
+<div class="stat-label">Выполнено</div>
+</div>
+
+<div class="stat">
+<div class="stat-number" id="importantCount">0</div>
+<div class="stat-label">Важных</div>
+</div>
+
+</div>
+
+<div class="profile-menu">
+
+<button onclick="showPage('completed')">
+✅ История выполненных задач
+</button>
+
+<button onclick="showToast('Данные сохраняются на этом устройстве')">
+💾 Хранение данных
+</button>
+
+<button onclick="clearCompleted()">
+🗑️ Очистить выполненные
+</button>
+
+</div>
+
+</section>
+
+
+<button class="add-button" onclick="openModal()">
+＋ Добавить задачу
+</button>
+
+
+<nav class="bottom">
+
+<button class="nav active" onclick="showPage('home')">
+<span>⌂</span>
+Главная
+</button>
+
+<button class="nav" onclick="showPage('calendarPage')">
+<span>▦</span>
+Календарь
+</button>
+
+<button class="nav" onclick="openModal()">
+<span>＋</span>
+Добавить
+</button>
+
+<button class="nav" onclick="showPage('completed')">
+<span>✓</span>
+Выполнено
+</button>
+
+<button class="nav" onclick="showPage('profile')">
+<span>●</span>
+Профиль
+</button>
+
+</nav>
 
 </div>
 
 
-<!-- MODAL -->
-<div id="modalBg" class="modal-bg" onclick="backgroundClose(event)">
+<!-- ОКНО ДОБАВЛЕНИЯ -->
 
-  <div class="modal">
+<div id="modalBg" class="modal-bg">
 
-    <div class="modal-handle"></div>
+<div class="modal">
 
-    <h2 id="modalTitle">Новая задача</h2>
+<h2 id="modalTitle">Новая задача</h2>
 
-    <div class="input-label">ВАЖНОСТЬ</div>
+<div class="priority">
 
-    <div class="priority-buttons">
+<button class="selected important"
+onclick="selectPriority('important',this)">
+🔴 Важная
+</button>
 
-      <button class="priority-button important selected"
-              data-priority="important"
-              onclick="selectPriority(this)">
-        🔴 Важная
-      </button>
+<button class="secondary"
+onclick="selectPriority('secondary',this)">
+🟢 Побочная
+</button>
 
-      <button class="priority-button secondary"
-              data-priority="secondary"
-              onclick="selectPriority(this)">
-        🟢 Побочная
-      </button>
+<button class="note"
+onclick="selectPriority('note',this)">
+🔵 Заметка
+</button>
 
-      <button class="priority-button note"
-              data-priority="note"
-              onclick="selectPriority(this)">
-        🔵 Заметка
-      </button>
+</div>
 
-    </div>
+<textarea
+id="taskText"
+placeholder="Введите задачу..."
+></textarea>
 
-    <div class="input-label">ЗАДАЧА</div>
+<div class="date-time">
 
-    <textarea id="taskText" placeholder="Введите задачу..."></textarea>
+<input type="date" id="taskDate">
 
-    <div class="input-label">ДАТА И ВРЕМЯ</div>
+<input type="time" id="taskTime">
 
-    <div class="datetime-row">
-      <input type="date" id="taskDate">
-      <input type="time" id="taskTime">
-    </div>
+</div>
 
-    <label class="check-row">
-      <input type="checkbox" id="permanent">
-      <span>Постоянная задача</span>
-    </label>
+<label class="permanent">
 
-    <div class="modal-buttons">
+<input type="checkbox" id="permanent">
 
-      <button class="cancel" onclick="closeModal()">
-        Отмена
-      </button>
+Постоянная задача
 
-      <button class="save" onclick="saveTask()">
-        Сохранить
-      </button>
+</label>
 
-    </div>
+<div class="modal-buttons">
 
-  </div>
+<button class="cancel" onclick="closeModal()">
+Отмена
+</button>
+
+<button class="save" onclick="saveTask()">
+Сохранить
+</button>
+
+</div>
+
+</div>
+
 </div>
 
 
@@ -971,945 +771,706 @@ input:focus {
 
 <script>
 
-/* =========================================================
-   ДАННЫЕ
-========================================================= */
+const STORAGE = "planningTasksFinal";
 
-const STORAGE_KEY = "planningTasksV2";
+let tasks = JSON.parse(localStorage.getItem(STORAGE) || "null");
 
-let tasks = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
+let category = "important";
 
-let selectedPriority = "important";
-let editingId = null;
+let priority = "important";
+
+let editId = null;
 
 let calendarDate = new Date();
 
 const months = [
-  "Январь","Февраль","Март","Апрель","Май","Июнь",
-  "Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"
+"Январь","Февраль","Март","Апрель","Май","Июнь",
+"Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"
 ];
 
-const monthsGenitive = [
-  "января","февраля","марта","апреля","мая","июня",
-  "июля","августа","сентября","октября","ноября","декабря"
+const genitive = [
+"января","февраля","марта","апреля","мая","июня",
+"июля","августа","сентября","октября","ноября","декабря"
 ];
 
 
-/* =========================================================
-   ДЕМО-ДАННЫЕ
-========================================================= */
+function dateString(date) {
+
+return date.getFullYear() + "-" +
+String(date.getMonth()+1).padStart(2,"0") + "-" +
+String(date.getDate()).padStart(2,"0");
+
+}
+
+
+function prettyDate(value) {
+
+if (!value) return "";
+
+const parts = value.split("-");
+
+return Number(parts[2]) + " " +
+genitive[Number(parts[1])-1];
+
+}
+
+
+function today() {
+
+return dateString(new Date());
+
+}
+
 
 if (!tasks) {
 
-  const today = formatDate(new Date());
+tasks = [
 
-  tasks = [
-    {
-      id: Date.now() + 1,
-      text: "Поздравить Бабу Зину",
-      priority: "important",
-      date: today,
-      time: "16:00",
-      permanent: false,
-      completed: false
-    },
+{
+id: 1,
+text: "Поздравить Бабу Зину",
+priority: "important",
+date: today(),
+time: "16:00",
+permanent: false,
+completed: false
+},
 
-    {
-      id: Date.now() + 2,
-      text: "Забрать ноутбук с ремонта",
-      priority: "important",
-      date: today,
-      time: "17:00",
-      permanent: false,
-      completed: false
-    },
+{
+id: 2,
+text: "Забрать ноутбук с ремонта",
+priority: "important",
+date: today(),
+time: "17:00",
+permanent: false,
+completed: false
+},
 
-    {
-      id: Date.now() + 3,
-      text: "Помыть пол до прихода жены",
-      priority: "secondary",
-      date: today,
-      time: "20:00",
-      permanent: false,
-      completed: false
-    },
+{
+id: 3,
+text: "Помыть пол до прихода жены",
+priority: "secondary",
+date: today(),
+time: "20:00",
+permanent: false,
+completed: false
+},
 
-    {
-      id: Date.now() + 4,
-      text: "#дома отключают свет до 16",
-      priority: "note",
-      date: today,
-      time: "",
-      permanent: false,
-      completed: false
-    }
-  ];
+{
+id: 4,
+text: "#дома отключают свет до 16",
+priority: "note",
+date: today(),
+time: "",
+permanent: false,
+completed: false
+}
 
-  saveData();
+];
+
+save();
+
 }
 
 
-/* =========================================================
-   СОХРАНЕНИЕ
-========================================================= */
+function save() {
 
-function saveData() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+localStorage.setItem(
+STORAGE,
+JSON.stringify(tasks)
+);
+
 }
 
-
-/* =========================================================
-   ДАТЫ
-========================================================= */
-
-function formatDate(date) {
-
-  const y = date.getFullYear();
-
-  const m = String(date.getMonth() + 1).padStart(2, "0");
-
-  const d = String(date.getDate()).padStart(2, "0");
-
-  return `${y}-${m}-${d}`;
-}
-
-
-function parseDate(str) {
-  const [y,m,d] = str.split("-").map(Number);
-  return new Date(y, m-1, d);
-}
-
-
-function formatPrettyDate(str) {
-
-  if (!str) return "";
-
-  const date = parseDate(str);
-
-  return `${date.getDate()} ${monthsGenitive[date.getMonth()]}`;
-}
-
-
-function isToday(str) {
-  return str === formatDate(new Date());
-}
-
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-function updateHeader() {
-
-  const now = new Date();
-
-  document.getElementById("headerDate").textContent =
-    `${now.getDate()} ${monthsGenitive[now.getMonth()]} ${now.getFullYear()}`;
-
-  document.getElementById("todayDate").textContent =
-    `${now.getDate()} ${monthsGenitive[now.getMonth()]}`;
-}
-
-
-/* =========================================================
-   НАВИГАЦИЯ
-========================================================= */
 
 function showPage(id) {
 
-  document.querySelectorAll(".page").forEach(page => {
-    page.classList.remove("active");
-  });
+document.querySelectorAll(".page")
+.forEach(page => page.classList.remove("active"));
 
-  const page = document.getElementById(id);
+document.getElementById(id)
+.classList.add("active");
 
-  if (page) page.classList.add("active");
+document.querySelectorAll(".nav")
+.forEach(button => button.classList.remove("active"));
 
-  document.querySelectorAll(".nav-button").forEach(button => {
-    button.classList.remove("active");
-  });
+const indexes = {
+home: 0,
+calendarPage: 1,
+completed: 3,
+profile: 4
+};
 
-  const map = {
-    home: 0,
-    calendarPage: 1,
-    completed: 3,
-    profile: 4
-  };
+if (indexes[id] !== undefined) {
 
-  if (map[id] !== undefined) {
-    document.querySelectorAll(".nav-button")[map[id]]
-      .classList.add("active");
-  }
+document.querySelectorAll(".nav")[indexes[id]]
+.classList.add("active");
 
-  renderAll();
 }
 
+render();
 
-/* =========================================================
-   ЗАДАЧИ
-========================================================= */
-
-function getActiveTasks() {
-  return tasks.filter(t => !t.completed);
 }
 
-
-function taskHTML(task, completed = false) {
-
-  const priorityName = {
-    important: "Важная",
-    secondary: "Побочная",
-    note: "Заметка"
-  };
-
-  return `
-    <div class="task-card ${completed ? "completed-card" : ""}">
-
-      <button
-        class="task-check ${task.priority}"
-        onclick="${completed ? "" : `completeTask(${task.id})`}"
-        ${completed ? "disabled" : ""}
-        aria-label="Выполнить">
-      </button>
-
-      <div class="task-info">
-
-        <div class="task-text ${task.priority}">
-          ${escapeHTML(task.text)}
-        </div>
-
-        <div class="task-meta">
-
-          ${task.date ? `<span>📅 ${formatPrettyDate(task.date)}</span>` : ""}
-
-          ${task.time ? `<span>⏰ ${task.time}</span>` : ""}
-
-          ${task.permanent ? `<span>🔄 постоянно</span>` : ""}
-
-          ${completed ? `<span>✓ выполнено</span>` : ""}
-
-        </div>
-
-      </div>
-
-      ${!completed ? `
-        <div class="task-actions">
-          <button class="small-action" onclick="editTask(${task.id})">✏️</button>
-          <button class="small-action" onclick="deleteTask(${task.id})">🗑️</button>
-        </div>
-      ` : ""}
-
-    </div>
-  `;
-}
-
-
-function escapeHTML(text) {
-
-  return String(text)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-}
-
-
-/* =========================================================
-   ГЛАВНАЯ
-========================================================= */
-
-let currentCategory = "important";
-
-
-function setCategory(category, button) {
-
-  currentCategory = category;
-
-  document.querySelectorAll(".category-tab")
-    .forEach(b => b.classList.remove("active"));
-
-  button.classList.add("active");
-
-  renderCategoryTasks();
-}
-
-
-function renderToday() {
-
-  const container = document.getElementById("todayTasks");
-
-  const today = formatDate(new Date());
-
-  const todayTasks = getActiveTasks()
-    .filter(t => t.date === today)
-    .sort(sortTasks);
-
-  if (!todayTasks.length) {
-
-    container.innerHTML = `
-      <div class="empty">
-        На сегодня планов нет 🌿
-      </div>
-    `;
-
-    return;
-  }
-
-  container.innerHTML =
-    todayTasks.map(t => taskHTML(t)).join("");
-}
-
-
-function renderCategoryTasks() {
-
-  const container = document.getElementById("categoryTasks");
-
-  const filtered = getActiveTasks()
-    .filter(t => t.priority === currentCategory)
-    .sort(sortTasks);
-
-  if (!filtered.length) {
-
-    container.innerHTML = `
-      <div class="empty">
-        В этой категории пока нет задач.
-      </div>
-    `;
-
-    return;
-  }
-
-  container.innerHTML =
-    filtered.map(t => taskHTML(t)).join("");
-}
-
-
-function sortTasks(a,b) {
-
-  if (a.date !== b.date) {
-    return (a.date || "").localeCompare(b.date || "");
-  }
-
-  return (a.time || "99:99").localeCompare(b.time || "99:99");
-}
-
-
-/* =========================================================
-   ВЫПОЛНЕНИЕ
-========================================================= */
-
-function completeTask(id) {
-
-  const task = tasks.find(t => t.id === id);
-
-  if (!task) return;
-
-  task.completed = true;
-  task.completedAt = new Date().toISOString();
-
-  saveData();
-
-  showToast("Задача выполнена ✓");
-
-  renderAll();
-}
-
-
-/* =========================================================
-   УДАЛЕНИЕ
-========================================================= */
-
-function deleteTask(id) {
-
-  if (!confirm("Удалить эту задачу?")) return;
-
-  tasks = tasks.filter(t => t.id !== id);
-
-  saveData();
-
-  showToast("Задача удалена");
-
-  renderAll();
-}
-
-
-/* =========================================================
-   МОДАЛЬНОЕ ОКНО
-========================================================= */
 
 function openModal(task = null) {
 
-  editingId = task ? task.id : null;
+editId = task ? task.id : null;
 
-  document.getElementById("modalTitle").textContent =
-    task ? "Редактирование задачи" : "Новая задача";
+document.getElementById("modalTitle")
+.textContent = task ? "Редактирование" : "Новая задача";
 
-  document.getElementById("taskText").value =
-    task ? task.text : "";
+document.getElementById("taskText")
+.value = task ? task.text : "";
 
-  document.getElementById("taskDate").value =
-    task ? task.date : formatDate(new Date());
+document.getElementById("taskDate")
+.value = task ? task.date : today();
 
-  document.getElementById("taskTime").value =
-    task ? task.time : "";
+document.getElementById("taskTime")
+.value = task ? task.time : "";
 
-  document.getElementById("permanent").checked =
-    task ? task.permanent : false;
+document.getElementById("permanent")
+.checked = task ? task.permanent : false;
 
-  selectedPriority =
-    task ? task.priority : "important";
+priority = task ? task.priority : "important";
 
-  document.querySelectorAll(".priority-button")
-    .forEach(button => {
+document.querySelectorAll(".priority button")
+.forEach(button => button.classList.remove("selected"));
 
-      button.classList.toggle(
-        "selected",
-        button.dataset.priority === selectedPriority
-      );
+document.querySelector(
+`.priority .${priority}`
+).classList.add("selected");
 
-    });
+document.getElementById("modalBg")
+.classList.add("show");
 
-  document.getElementById("modalBg")
-    .classList.add("show");
-
-  setTimeout(() => {
-    document.getElementById("taskText").focus();
-  }, 100);
 }
 
 
 function closeModal() {
 
-  document.getElementById("modalBg")
-    .classList.remove("show");
+document.getElementById("modalBg")
+.classList.remove("show");
 
-  editingId = null;
+editId = null;
+
 }
 
 
-function backgroundClose(event) {
+function selectPriority(value, button) {
 
-  if (event.target.id === "modalBg") {
-    closeModal();
-  }
+priority = value;
+
+document.querySelectorAll(".priority button")
+.forEach(b => b.classList.remove("selected"));
+
+button.classList.add("selected");
+
 }
 
-
-function selectPriority(button) {
-
-  selectedPriority =
-    button.dataset.priority;
-
-  document.querySelectorAll(".priority-button")
-    .forEach(b => b.classList.remove("selected"));
-
-  button.classList.add("selected");
-}
-
-
-/* =========================================================
-   СОЗДАНИЕ / РЕДАКТИРОВАНИЕ
-========================================================= */
 
 function saveTask() {
 
-  const text =
-    document.getElementById("taskText").value.trim();
+const text =
+document.getElementById("taskText").value.trim();
 
-  const date =
-    document.getElementById("taskDate").value;
+const date =
+document.getElementById("taskDate").value;
 
-  const time =
-    document.getElementById("taskTime").value;
+const time =
+document.getElementById("taskTime").value;
 
-  const permanent =
-    document.getElementById("permanent").checked;
-
-  if (!text) {
-
-    showToast("Введите текст задачи");
-
-    return;
-  }
-
-  if (!date) {
-
-    showToast("Выберите дату");
-
-    return;
-  }
+const permanent =
+document.getElementById("permanent").checked;
 
 
-  if (editingId) {
+if (!text) {
 
-    const task = tasks.find(t => t.id === editingId);
+showToast("Введите задачу");
 
-    if (task) {
+return;
 
-      task.text = text;
-      task.priority = selectedPriority;
-      task.date = date;
-      task.time = time;
-      task.permanent = permanent;
-
-    }
-
-    showToast("Задача изменена");
-
-  } else {
-
-    const newTask = {
-
-      id: Date.now(),
-
-      text,
-      priority: selectedPriority,
-      date,
-      time,
-      permanent,
-      completed: false
-
-    };
-
-    tasks.push(newTask);
-
-    showToast("Задача создана ✓");
-  }
-
-
-  saveData();
-
-  closeModal();
-
-  renderAll();
 }
 
 
-/* =========================================================
-   РЕДАКТИРОВАНИЕ
-========================================================= */
+if (!date) {
+
+showToast("Выберите дату");
+
+return;
+
+}
+
+
+if (editId) {
+
+const task =
+tasks.find(t => t.id === editId);
+
+task.text = text;
+task.priority = priority;
+task.date = date;
+task.time = time;
+task.permanent = permanent;
+
+showToast("Задача изменена");
+
+} else {
+
+tasks.push({
+
+id: Date.now(),
+
+text,
+priority,
+date,
+time,
+permanent,
+completed: false
+
+});
+
+showToast("Задача создана ✓");
+
+}
+
+
+save();
+
+closeModal();
+
+render();
+
+}
+
+
+function completeTask(id) {
+
+const task =
+tasks.find(t => t.id === id);
+
+if (!task) return;
+
+task.completed = true;
+
+task.completedAt =
+new Date().toISOString();
+
+save();
+
+showToast("Задача выполнена ✓");
+
+render();
+
+}
+
+
+function deleteTask(id) {
+
+if (!confirm("Удалить задачу?")) return;
+
+tasks =
+tasks.filter(t => t.id !== id);
+
+save();
+
+showToast("Задача удалена");
+
+render();
+
+}
+
 
 function editTask(id) {
 
-  const task = tasks.find(t => t.id === id);
+const task =
+tasks.find(t => t.id === id);
 
-  if (!task) return;
+if (task) openModal(task);
 
-  openModal(task);
 }
 
 
-/* =========================================================
-   КАЛЕНДАРЬ
-========================================================= */
+function taskHTML(task, completed=false) {
+
+return `
+
+<div class="task">
+
+<button
+class="check ${task.priority}"
+onclick="${completed ? "" : `completeTask(${task.id})`}"
+></button>
+
+<div class="task-content">
+
+<div class="task-text ${task.priority}">
+${escapeHTML(task.text)}
+</div>
+
+<div class="meta">
+
+${task.date ? "📅 " + prettyDate(task.date) : ""}
+
+${task.time ? " · ⏰ " + task.time : ""}
+
+${task.permanent ? " · 🔄 постоянно" : ""}
+
+${completed ? " · ✓ выполнено" : ""}
+
+</div>
+
+</div>
+
+${completed ? "" : `
+
+<div class="actions">
+
+<button onclick="editTask(${task.id})">✏️</button>
+
+<button onclick="deleteTask(${task.id})">🗑️</button>
+
+</div>
+
+`}
+
+</div>
+
+`;
+
+}
+
+
+function escapeHTML(text) {
+
+return String(text)
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+
+}
+
+
+function setCategory(value, button) {
+
+category = value;
+
+document.querySelectorAll(".tab")
+.forEach(b => b.classList.remove("active"));
+
+button.classList.add("active");
+
+renderCategory();
+
+}
+
+
+function renderToday() {
+
+const container =
+document.getElementById("todayTasks");
+
+const list =
+tasks
+.filter(t => !t.completed && t.date === today())
+.sort(sortTasks);
+
+
+container.innerHTML =
+list.length
+? list.map(t => taskHTML(t)).join("")
+: `<div class="empty">На сегодня планов нет 🌿</div>`;
+
+}
+
+
+function renderCategory() {
+
+const container =
+document.getElementById("categoryTasks");
+
+const list =
+tasks
+.filter(t => !t.completed && t.priority === category)
+.sort(sortTasks);
+
+
+container.innerHTML =
+list.length
+? list.map(t => taskHTML(t)).join("")
+: `<div class="empty">В этой категории пока нет задач.</div>`;
+
+}
+
+
+function sortTasks(a,b) {
+
+return (a.date + a.time)
+.localeCompare(b.date + b.time);
+
+}
+
 
 function changeMonth(direction) {
 
-  calendarDate.setMonth(
-    calendarDate.getMonth() + direction
-  );
+calendarDate.setMonth(
+calendarDate.getMonth() + direction
+);
 
-  renderCalendar();
+renderCalendar();
+
 }
 
 
 function renderCalendar() {
 
-  const year = calendarDate.getFullYear();
+const year =
+calendarDate.getFullYear();
 
-  const month = calendarDate.getMonth();
+const month =
+calendarDate.getMonth();
 
-  document.getElementById("monthTitle").textContent =
-    `${months[month]} ${year}`;
+document.getElementById("monthTitle")
+.textContent =
+months[month] + " " + year;
 
-  const grid =
-    document.getElementById("calendarGrid");
+const grid =
+document.getElementById("calendarGrid");
 
-  grid.innerHTML = "";
+grid.innerHTML = "";
 
-  const firstDay =
-    new Date(year, month, 1);
+const first =
+new Date(year,month,1);
 
-  let startDay =
-    firstDay.getDay();
+let start =
+first.getDay();
 
-  // Понедельник = 0
-  startDay =
-    startDay === 0 ? 6 : startDay - 1;
+start = start === 0 ? 6 : start - 1;
 
-  const daysInMonth =
-    new Date(year, month + 1, 0).getDate();
-
-  const previousMonthDays =
-    new Date(year, month, 0).getDate();
+const days =
+new Date(year,month+1,0).getDate();
 
 
-  // Дни предыдущего месяца
-  for (let i = startDay - 1; i >= 0; i--) {
+for (let i=0; i<start; i++) {
 
-    const dayNumber =
-      previousMonthDays - i;
+const cell =
+document.createElement("div");
 
-    const previousDate =
-      new Date(year, month - 1, dayNumber);
+cell.className = "day";
 
-    grid.appendChild(
-      createDayCell(
-        previousDate,
-        true
-      )
-    );
-  }
+cell.innerHTML = "";
 
+grid.appendChild(cell);
 
-  // Текущий месяц
-  for (let day = 1; day <= daysInMonth; day++) {
-
-    const date =
-      new Date(year, month, day);
-
-    grid.appendChild(
-      createDayCell(
-        date,
-        false
-      )
-    );
-  }
-
-
-  // Следующий месяц
-  while (grid.children.length < 42) {
-
-    const nextDay =
-      grid.children.length - daysInMonth - startDay + 1;
-
-    const date =
-      new Date(year, month + 1, nextDay);
-
-    grid.appendChild(
-      createDayCell(
-        date,
-        true
-      )
-    );
-  }
-
-
-  renderMonthTasks();
 }
 
 
-function createDayCell(date, otherMonth) {
+for (let d=1; d<=days; d++) {
 
-  const cell =
-    document.createElement("div");
+const date =
+new Date(year,month,d);
 
-  cell.className = "day";
+const value =
+dateString(date);
 
-  if (otherMonth) {
-    cell.classList.add("other-month");
-  }
+const cell =
+document.createElement("div");
 
-  const dateString =
-    formatDate(date);
+cell.className = "day";
 
-  if (isToday(dateString)) {
-    cell.classList.add("today");
-  }
+if (value === today()) {
 
+cell.classList.add("today-day");
 
-  cell.innerHTML = `
-    <div class="day-number">
-      ${date.getDate()}
-    </div>
-  `;
+}
 
 
-  const dayTasks =
-    getActiveTasks()
-      .filter(t => t.date === dateString)
-      .slice(0,3);
+cell.innerHTML =
+`<div class="day-number">${d}</div>`;
 
 
-  dayTasks.forEach(task => {
+tasks
+.filter(t => !t.completed && t.date === value)
+.slice(0,3)
+.forEach(task => {
 
-    const taskElement =
-      document.createElement("div");
+const div =
+document.createElement("div");
 
-    taskElement.className =
-      `day-task ${task.priority}`;
+div.className =
+"dot " + task.priority;
 
-    taskElement.textContent =
-      task.text;
+div.textContent =
+task.text;
 
-    cell.appendChild(taskElement);
+cell.appendChild(div);
 
-  });
-
-
-  cell.onclick = () => {
-
-    if (otherMonth) return;
-
-    openModal({
-      id: null,
-      text: "",
-      priority: "important",
-      date: dateString,
-      time: "",
-      permanent: false
-    });
-
-  };
+});
 
 
-  return cell;
+grid.appendChild(cell);
+
+}
+
+
+while (grid.children.length < 42) {
+
+const cell =
+document.createElement("div");
+
+cell.className = "day";
+
+grid.appendChild(cell);
+
+}
+
+
+renderMonthTasks();
+
 }
 
 
 function renderMonthTasks() {
 
-  const container =
-    document.getElementById("monthTasks");
+const container =
+document.getElementById("monthTasks");
 
-  const year =
-    calendarDate.getFullYear();
-
-  const month =
-    String(calendarDate.getMonth() + 1).padStart(2,"0");
-
-
-  const monthTasks =
-    getActiveTasks()
-      .filter(t => t.date && t.date.startsWith(`${year}-${month}`))
-      .sort(sortTasks);
+const prefix =
+calendarDate.getFullYear() +
+"-" +
+String(calendarDate.getMonth()+1).padStart(2,"0");
 
 
-  if (!monthTasks.length) {
-
-    container.innerHTML = `
-      <div class="empty">
-        В этом месяце задач нет.
-      </div>
-    `;
-
-    return;
-  }
+const list =
+tasks
+.filter(t =>
+!t.completed &&
+t.date &&
+t.date.startsWith(prefix)
+)
+.sort(sortTasks);
 
 
-  container.innerHTML =
-    monthTasks.map(t => taskHTML(t)).join("");
+container.innerHTML =
+list.length
+? list.map(t => taskHTML(t)).join("")
+: `<div class="empty">Задач в этом месяце нет.</div>`;
+
 }
 
 
-/* =========================================================
-   ВЫПОЛНЕННЫЕ
-========================================================= */
-
 function renderCompleted() {
 
-  const container =
-    document.getElementById("completedTasks");
+const container =
+document.getElementById("completedTasks");
 
-  const completed =
-    tasks
-      .filter(t => t.completed)
-      .sort((a,b) =>
-        (b.completedAt || "").localeCompare(
-          a.completedAt || ""
-        )
-      );
+const list =
+tasks
+.filter(t => t.completed)
+.reverse();
 
 
-  if (!completed.length) {
+container.innerHTML =
+list.length
+? list.map(t => taskHTML(t,true)).join("")
+: `<div class="empty">Выполненных задач пока нет.</div>`;
 
-    container.innerHTML = `
-      <div class="empty">
-        Выполненных задач пока нет.<br>
-        Выполни первую задачу — она появится здесь ✓
-      </div>
-    `;
-
-    return;
-  }
-
-
-  container.innerHTML =
-    completed.map(t => taskHTML(t,true)).join("");
 }
 
 
 function clearCompleted() {
 
-  const count =
-    tasks.filter(t => t.completed).length;
+if (!confirm("Очистить историю выполненных задач?"))
+return;
 
-  if (!count) {
+tasks =
+tasks.filter(t => !t.completed);
 
-    showToast("История уже пустая");
+save();
 
-    return;
-  }
+render();
 
+showToast("История очищена");
 
-  if (!confirm("Очистить историю выполненных задач?")) {
-    return;
-  }
-
-
-  tasks =
-    tasks.filter(t => !t.completed);
-
-  saveData();
-
-  showToast("История очищена");
-
-  renderAll();
 }
 
-
-/* =========================================================
-   ПРОФИЛЬ
-========================================================= */
 
 function renderProfile() {
 
-  const total =
-    tasks.length;
+document.getElementById("totalCount")
+.textContent = tasks.length;
 
-  const completed =
-    tasks.filter(t => t.completed).length;
+document.getElementById("doneCount")
+.textContent =
+tasks.filter(t => t.completed).length;
 
-  const important =
-    tasks.filter(t =>
-      t.priority === "important" &&
-      !t.completed
-    ).length;
+document.getElementById("importantCount")
+.textContent =
+tasks.filter(t =>
+!t.completed &&
+t.priority === "important"
+).length;
 
-
-  document.getElementById("totalCount")
-    .textContent = total;
-
-  document.getElementById("completedCount")
-    .textContent = completed;
-
-  document.getElementById("importantCount")
-    .textContent = important;
 }
 
 
-/* =========================================================
-   НАПОМИНАНИЯ
-========================================================= */
+function updateDates() {
 
-function checkReminder() {
+const now = new Date();
 
-  const now = new Date();
+document.getElementById("headerDate")
+.textContent =
+now.getDate() + " " +
+genitive[now.getMonth()] + " " +
+now.getFullYear();
 
-  const today =
-    formatDate(now);
+document.getElementById("todayDate")
+.textContent =
+now.getDate() + " " +
+genitive[now.getMonth()];
 
-  const currentTime =
-    now.toTimeString().slice(0,5);
-
-
-  const task =
-    getActiveTasks().find(t =>
-      t.date === today &&
-      t.time === currentTime
-    );
-
-
-  const reminder =
-    document.getElementById("reminder");
-
-
-  if (task) {
-
-    reminder.classList.add("show");
-
-    reminder.innerHTML = `
-      <strong>⏰ Напоминание</strong>
-      ${escapeHTML(task.text)}
-      ${task.time ? ` — ${task.time}` : ""}
-    `;
-
-  } else {
-
-    reminder.classList.remove("show");
-
-  }
 }
-
-
-/* =========================================================
-   ОБЩИЙ РЕНДЕР
-========================================================= */
-
-function renderAll() {
-
-  updateHeader();
-
-  renderToday();
-
-  renderCategoryTasks();
-
-  renderCalendar();
-
-  renderCompleted();
-
-  renderProfile();
-
-  checkReminder();
-}
-
-
-/* =========================================================
-   УВЕДОМЛЕНИЕ ВНУТРИ ПРИЛОЖЕНИЯ
-========================================================= */
-
-let toastTimer;
 
 
 function showToast(message) {
 
-  const toast =
-    document.getElementById("toast");
+const toast =
+document.getElementById("toast");
 
-  toast.textContent =
-    message;
+toast.textContent = message;
 
-  toast.classList.add("show");
+toast.classList.add("show");
 
-  clearTimeout(toastTimer);
+setTimeout(() => {
 
-  toastTimer =
-    setTimeout(() => {
+toast.classList.remove("show");
 
-      toast.classList.remove("show");
+},2200);
 
-    }, 2200);
 }
 
 
-/* =========================================================
-   ЗАПУСК
-========================================================= */
+function render() {
 
-updateHeader();
+updateDates();
 
-renderAll();
+renderToday();
 
-setInterval(checkReminder, 30000);
-<script>
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./sw.js")
-      .then(() => console.log("Система планирования: офлайн-режим включён"))
-      .catch(error => console.log("Ошибка:", error));
-  });
+renderCategory();
+
+renderCalendar();
+
+renderCompleted();
+
+renderProfile();
+
 }
+
+
+render();
+
 </script>
 
 </body>
