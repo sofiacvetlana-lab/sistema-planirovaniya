@@ -1,0 +1,11 @@
+{
+  "name": "Система планирования",
+  "short_name": "Планирование",
+  "description": "Личная система планирования и контроля задач",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f4f7f5",
+  "theme_color": "#5FAF8A",
+  "orientation": "portrait",
+  "lang": "ru"
+}
